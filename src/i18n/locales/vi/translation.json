@@ -3,6 +3,9 @@
   "management": "Quản lý",
   "products": "Sản phẩm",
   "carts": "Giỏ hàng",
+  "role": "Phân quyền",
+  "customers": "Người dùng",
+  "staffs": "Nhân viên",
   "settings": "Cài đặt",
   "log-out": "Đăng xuất"
 }

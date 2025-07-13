@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,10 +13,12 @@ import {
   ShopOutlined,
   ShoppingCartOutlined,
   SettingOutlined,
+  ControlOutlined,
+  UserOutlined,
+  BranchesOutlined,
 } from '@ant-design/icons';
 
 import './styles.scss';
-import { useMemo } from 'react';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
@@ -34,7 +37,8 @@ const Sidebar = (props: PropType) => {
   const dispatch = useDispatch();
 
   const isOpenSidebar: boolean = useSelector((state: RootState) => state.users.isOpenSidebar);
-  const selectedKey = location.pathname;
+
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
 
   const siderStyle: React.CSSProperties = {
     background: '#fff',
@@ -69,20 +73,58 @@ const Sidebar = (props: PropType) => {
       ],
     },
     {
+      key: '/dashboard/role',
+      icon: <ControlOutlined style={{ fontSize: '18px' }} />,
+      label: t('role'),
+      children: [
+        {
+          key: '/role/customer',
+          icon: <UserOutlined style={{ fontSize: '18px' }} />,
+          label: t('customers'),
+        },
+        {
+          key: '/role/staff',
+          icon: <BranchesOutlined style={{ fontSize: '18px' }} />,
+          label: t('staffs'),
+        },
+      ],
+    },
+    {
       key: '/settings',
       icon: <SettingOutlined style={{ fontSize: '18px' }} />,
       label: t('settings'),
     },
   ];
 
-  const openKey = useMemo(() => {
+  const selectedKey = useMemo(() => {
+    // Duyệt toàn bộ menuItems để tìm key phù hợp nhất
+    const allKeys: string[] = [];
+
+    menuItems.forEach((item) => {
+      if (item.children) {
+        item.children.forEach((child) => allKeys.push(child.key));
+      } else {
+        allKeys.push(item.key);
+      }
+    });
+
+    // Tìm key dài nhất mà pathname bắt đầu bằng key đó
+    const matchedKey = allKeys
+      .filter((key) => location.pathname.startsWith(key))
+      .sort((a, b) => b.length - a.length)[0];
+
+    return matchedKey || location.pathname;
+  }, [location.pathname]);
+
+  useEffect(() => {
     for (const item of menuItems) {
-      if (item.children?.some((child) => child.key === selectedKey)) {
-        return item.key;
+      if (item.children?.some((child) => selectedKey === child.key)) {
+        setOpenKeys([item.key]);
+        return;
       }
     }
 
-    return '';
+    setOpenKeys([]);
   }, [selectedKey]);
 
   return (
@@ -108,8 +150,9 @@ const Sidebar = (props: PropType) => {
         className='[&_.ant-menu-item-selected]:font-[500]'
         theme='light'
         mode='inline'
-        defaultOpenKeys={[openKey as string]}
-        selectedKeys={[location.pathname]}
+        openKeys={openKeys}
+        selectedKeys={[selectedKey]}
+        onOpenChange={(keys) => setOpenKeys(keys)}
         onClick={(e) => navigate(e.key)}
         items={menuItems}
       />

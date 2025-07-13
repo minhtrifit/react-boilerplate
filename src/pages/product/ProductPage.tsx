@@ -83,8 +83,8 @@ const ProductPage = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='w-full flex items-center justify-between gap-3'>
-        <div className='flex items-center gap-3'>
+      <div className='w-full flex flex-wrap items-center justify-between gap-3'>
+        <div className='flex flex-wrap items-center gap-3'>
           <Input
             style={{ width: 300 }}
             placeholder='Tìm theo tên...'
