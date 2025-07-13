@@ -1,31 +1,41 @@
-import { useSearchParams } from 'react-router-dom';
-import { useGetProducts } from './hooks/useGetProducts';
-import { Button, Input, Pagination, Table } from 'antd';
-import Loading from './components/Loading';
 import { useMemo, useState } from 'react';
+import { Button, Input, Pagination, Table, Select } from 'antd';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useGetProducts } from './hooks/useGetProducts';
+import Loading from './components/Loading';
 
-const { Search } = Input;
 const { Column } = Table;
 
 const ProductPage = () => {
   const LIMIT_PRODUCTS_PER_PAGE = 5;
   const TOTAL_PRODUCTS = 10;
 
+  const options = [
+    { label: `Men's Clothing`, value: `men's clothing` },
+    { label: 'Jewelery', value: 'jewelery' },
+    { label: 'Electronics', value: 'electronics' },
+  ];
+
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const page = searchParams.get('page');
   const query = searchParams.get('query');
-  const pageQuery = searchParams.get('page');
+  const category = searchParams.get('category');
 
   const paramsObject = Object.fromEntries(searchParams.entries());
 
   const [filter, setFilter] = useState({
-    page: Number(pageQuery ?? 1),
+    page: Number(page ?? 1),
     query: query ?? '',
+    category: category ?? undefined,
   });
 
   const { data, loading, total, params, setParams } = useGetProducts({
     page: filter.page,
     search: filter.query,
+    category: filter.category,
     limit: LIMIT_PRODUCTS_PER_PAGE,
   });
 
@@ -54,12 +64,17 @@ const ProductPage = () => {
     setFilter({ ...filter, page: 1 });
 
     setParams({
-      page: filter.page,
+      page: 1,
       query: filter.query,
+      category: filter.category,
       limit: LIMIT_PRODUCTS_PER_PAGE,
     });
 
-    setSearchParams({ page: filter.page.toString(), query: filter.query });
+    setSearchParams({
+      page: '1',
+      query: filter.query,
+      category: filter.category ?? '',
+    });
   };
 
   if (loading) {
@@ -68,17 +83,54 @@ const ProductPage = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='w-full flex items-center gap-5'>
-        <Search
-          placeholder='Tìm theo tên...'
-          value={filter.query}
-          onChange={(e) => {
-            handleChangeFilter('query', e.target.value);
+      <div className='w-full flex items-center justify-between gap-3'>
+        <div className='flex items-center gap-3'>
+          <Input
+            style={{ width: 300 }}
+            placeholder='Tìm theo tên...'
+            allowClear
+            value={filter.query}
+            onChange={(e) => {
+              handleChangeFilter('query', e.target.value);
+            }}
+          />
+
+          <Select
+            style={{ width: 200 }}
+            placeholder='Chọn phân loại'
+            showSearch
+            allowClear
+            options={options}
+            optionFilterProp='label'
+            filterOption={(input, option) =>
+              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+            }
+            value={filter.category}
+            onChange={(value) => {
+              handleChangeFilter('category', value);
+            }}
+          />
+
+          <Button
+            color='primary'
+            variant='solid'
+            icon={<SearchOutlined />}
+            onClick={handleApplyFilter}
+          >
+            Tìm kiếm
+          </Button>
+        </div>
+
+        <Button
+          color='primary'
+          variant='solid'
+          icon={<PlusOutlined />}
+          onClick={() => {
+            navigate('/dashboard/products/add');
           }}
-          allowClear
-          style={{ marginBottom: 16, width: 300 }}
-          onSearch={handleApplyFilter}
-        />
+        >
+          Thêm mới
+        </Button>
       </div>
 
       <Table dataSource={TABLE_DATA} pagination={false} bordered scroll={{ x: 'max-content' }}>
@@ -111,9 +163,27 @@ const ProductPage = () => {
           width={200}
           render={(_, record) => {
             return (
-              <Button color='geekblue' variant='solid'>
-                Xem sản phẩm {record?.id}
-              </Button>
+              <div className='flex items-center gap-3'>
+                <Button
+                  color='geekblue'
+                  variant='solid'
+                  onClick={() => {
+                    navigate(`/dashboard/products/detail/${record?.id}`);
+                  }}
+                >
+                  Xem
+                </Button>
+
+                <Button
+                  color='gold'
+                  variant='solid'
+                  onClick={() => {
+                    navigate(`/dashboard/products/edit/${record?.id}`);
+                  }}
+                >
+                  Sửa
+                </Button>
+              </div>
             );
           }}
         />

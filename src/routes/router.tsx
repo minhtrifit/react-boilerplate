@@ -8,6 +8,8 @@ import { HomePage } from '@/pages/home/HomePage';
 import { NotFoundPage } from '@/pages/not-found-page/NotFoundPage';
 import DashboardPage from '@/pages/dashboard/DashboardPage';
 import ProductPage from '@/pages/product/ProductPage';
+import AddProductPage from '@/pages/add-product/AddProductPage';
+import EditProductPage from '@/pages/edit-product/EditProductPage';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <DashboardPage /> },
       { path: APP_ROUTE.PRODUCTS, element: <ProductPage /> },
+      { path: APP_ROUTE.ADD_PRODUCT, element: <AddProductPage /> },
+      { path: APP_ROUTE.EDIT_PRODUCT, element: <EditProductPage /> },
     ],
   },
   { path: '/*', element: <NotFoundPage /> },

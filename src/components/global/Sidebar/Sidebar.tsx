@@ -15,6 +15,7 @@ import {
 } from '@ant-design/icons';
 
 import './styles.scss';
+import { useMemo } from 'react';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
@@ -33,6 +34,7 @@ const Sidebar = (props: PropType) => {
   const dispatch = useDispatch();
 
   const isOpenSidebar: boolean = useSelector((state: RootState) => state.users.isOpenSidebar);
+  const selectedKey = location.pathname;
 
   const siderStyle: React.CSSProperties = {
     background: '#fff',
@@ -73,6 +75,16 @@ const Sidebar = (props: PropType) => {
     },
   ];
 
+  const openKey = useMemo(() => {
+    for (const item of menuItems) {
+      if (item.children?.some((child) => child.key === selectedKey)) {
+        return item.key;
+      }
+    }
+
+    return '';
+  }, [selectedKey]);
+
   return (
     <Sider style={siderStyle} width={250} collapsible collapsed={!isOpenSidebar} trigger={null}>
       <div className='w-full h-[64px] flex items-center px-[5px]'>
@@ -96,6 +108,7 @@ const Sidebar = (props: PropType) => {
         className='[&_.ant-menu-item-selected]:font-[500]'
         theme='light'
         mode='inline'
+        defaultOpenKeys={[openKey as string]}
         selectedKeys={[location.pathname]}
         onClick={(e) => navigate(e.key)}
         items={menuItems}

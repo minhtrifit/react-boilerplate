@@ -48,7 +48,10 @@ const AuthProvider = ({ children }: PropType) => {
 
       // Navigate to current path
       const currentPath = location.pathname;
-      navigate(currentPath ?? '/dashboard');
+      const currtentSearchParams = location.search;
+      const redirectPath = `${currentPath}${currtentSearchParams}`;
+
+      navigate(redirectPath ?? '/dashboard');
     } catch (error) {
       Cookies.remove(APP_NAME);
 
