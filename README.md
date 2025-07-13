@@ -10,6 +10,7 @@
 2. [Project Setup](#project-setup)
    1. [Environment](#environment)
    2. [Source code setup](#source-code-setup)
+   3. [Docker](#docker)
 3. [API Document](#api-document)
 
 ## 📁 Technical Stack <a name="technical-stack"></a>
@@ -56,6 +57,14 @@ Run client project (supported by [Vite](https://vite.dev))
 
 ```console
 npm run dev
+```
+
+### 🐳 Docker <a name="docker"></a>
+
+Buid & run app with Docker
+
+```console
+docker-compose up -d --build
 ```
 
 ## 📄 API Document <a name="api-document"></a>
