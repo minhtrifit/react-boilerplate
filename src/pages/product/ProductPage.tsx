@@ -126,7 +126,7 @@ const ProductPage = () => {
           variant='solid'
           icon={<PlusOutlined />}
           onClick={() => {
-            navigate('/dashboard/products/add');
+            navigate('/management/products/add');
           }}
         >
           Thêm mới
@@ -168,7 +168,7 @@ const ProductPage = () => {
                   color='geekblue'
                   variant='solid'
                   onClick={() => {
-                    navigate(`/dashboard/products/detail/${record?.id}`);
+                    navigate(`/management/products/detail/${record?.id}`);
                   }}
                 >
                   Xem
@@ -178,7 +178,7 @@ const ProductPage = () => {
                   color='gold'
                   variant='solid'
                   onClick={() => {
-                    navigate(`/dashboard/products/edit/${record?.id}`);
+                    navigate(`/management/products/edit/${record?.id}`);
                   }}
                 >
                   Sửa

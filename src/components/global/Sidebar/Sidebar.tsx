@@ -56,34 +56,34 @@ const Sidebar = (props: PropType) => {
       label: t('dashboard'),
     },
     {
-      key: '/dashboard/management',
+      key: '/management',
       icon: <AppstoreOutlined style={{ fontSize: '18px' }} />,
       label: t('management'),
       children: [
         {
-          key: '/dashboard/products',
+          key: '/management/products',
           icon: <ShopOutlined style={{ fontSize: '18px' }} />,
           label: t('products'),
         },
         {
-          key: '/dashboard/carts',
+          key: '/management/carts',
           icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} />,
           label: t('carts'),
         },
       ],
     },
     {
-      key: '/dashboard/role',
+      key: '/role',
       icon: <ControlOutlined style={{ fontSize: '18px' }} />,
       label: t('role'),
       children: [
         {
-          key: '/role/customer',
+          key: '/role/customers',
           icon: <UserOutlined style={{ fontSize: '18px' }} />,
           label: t('customers'),
         },
         {
-          key: '/role/staff',
+          key: '/role/staffs',
           icon: <BranchesOutlined style={{ fontSize: '18px' }} />,
           label: t('staffs'),
         },

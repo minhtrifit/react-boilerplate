@@ -20,7 +20,7 @@ const EditProductPage = () => {
       console.log('Update Product:', res);
 
       message.success('Update product successfully');
-      navigate('/dashboard/products');
+      navigate('/management/products');
     } catch (error) {
       console.log('Update product failed:', error);
     }

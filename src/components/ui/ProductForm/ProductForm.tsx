@@ -238,7 +238,7 @@ const ProductForm = (props: PropType) => {
           type='default'
           disabled={submitLoading}
           onClick={() => {
-            navigate('/dashboard/products');
+            navigate('/management/products');
           }}
         >
           Hủy

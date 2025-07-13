@@ -15,7 +15,7 @@ const AddProductPage = () => {
       console.log('Add Product:', res);
 
       message.success('Add product successfully');
-      navigate('/dashboard/products');
+      navigate('/management/products');
     } catch (error) {
       console.log('Add product failed:', error);
     }
