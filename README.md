@@ -1,30 +1,70 @@
-# React + TypeScript + Vite
+# REACT BOILERPLATE DOCUMENTATION
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src="https://img.shields.io/github/stars/minhtrifit/react-boilerplate"/> ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/minhtrifit/react-boilerplate)
 
-Currently, two official plugins are available:
+<!-- ![Thumbnail](./showcase/thumbnail.png) -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 📋 Table of Contents
 
-## Expanding the ESLint configuration
+1. [Technical Stack](#technical-stack)
+2. [Project Setup](#project-setup)
+   1. [Environment](#environment)
+   2. [Source code setup](#source-code-setup)
+3. [API Document](#api-document)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 📁 Technical Stack <a name="technical-stack"></a>
 
-- Configure the top-level `parserOptions` property like this:
+<p align="left"> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- [React.js](https://react.dev) - The library for web and native user interfaces
+- [AntDesign](https://ant.design) - Help designers/developers building beautiful products more flexible and working with happiness
+- [Tailwind CSS](https://tailwindcss.com) - Rapidly build modern websites without ever leaving your HTML
+- [TypeScript](https://www.typescriptlang.org) - JavaScript with syntax for types
+
+## 💽 Project Setup <a name="project-setup"></a>
+
+### 🌍 Environment <a name="environment"></a>
+
+```console
+node version: >20.
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 📦 Source code setup <a name="source-code-setup"></a>
+
+⚙️ Config [.env]() file in dir with path `.env`:
+
+```bash
+VITE_APP_NAME=minhtrifit
+VITE_API_URL=https://fakestoreapi.com
+```
+
+📥 Installation packages:
+
+Intall packages & dependencies (use --force tag to install conflict packages version, detail in **Conflict npm packages** topic).
+
+```console
+npm install --force
+```
+
+Or install packages with legacy peer dependencies.
+
+```console
+npm install --legacy-peer-deps
+```
+
+Run client project (supported by [Vite](https://vite.dev))
+
+```console
+npm run dev
+```
+
+## 📄 API Document <a name="api-document"></a>
+
+[This boilerplate using FakeStore API (click to view document)](https://fakestoreapi.com/docs)
+
+## 💌 Contact
+
+- Author - [minhtrifit](https://minhtrifit-dev.vercel.app)
+- [Github](https://github.com/minhtrifit)
+
+> CopyRight© minhtrifit
