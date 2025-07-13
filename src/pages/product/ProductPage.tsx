@@ -77,10 +77,6 @@ const ProductPage = () => {
     });
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div className='flex flex-col gap-5'>
       <div className='w-full flex flex-wrap items-center justify-between gap-3'>
@@ -133,74 +129,80 @@ const ProductPage = () => {
         </Button>
       </div>
 
-      <Table dataSource={TABLE_DATA} pagination={false} bordered scroll={{ x: 'max-content' }}>
-        <Column title='ID' dataIndex='id' key='id' width={60} align='center' />
-        <Column title='Tên sản phẩm' dataIndex='title' key='title' width={400} />
-        <Column title='Phân loại' dataIndex='category' key='category' width={200} />
-        <Column title='Giá' dataIndex='price' key='price' width={200} />
-        <Column
-          title='Hình ảnh'
-          dataIndex='image'
-          key='image'
-          width={150}
-          render={(value, record) => {
-            return (
-              <div className='w-full flex items-center justify-center'>
-                <div className='w-[50px] h-[50px] flex items-center justify-center'>
-                  <img
-                    className='w-full h-full object-cover'
-                    src={value}
-                    alt={`${record?.id}-img`}
-                  />
-                </div>
-              </div>
-            );
-          }}
-        />
-        <Column
-          title='Thao tác'
-          key='action'
-          width={200}
-          render={(_, record) => {
-            return (
-              <div className='flex items-center gap-2'>
-                <Button
-                  color='geekblue'
-                  variant='solid'
-                  onClick={() => {
-                    navigate(`/management/products/detail/${record?.id}`);
-                  }}
-                >
-                  Xem
-                </Button>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <Table dataSource={TABLE_DATA} pagination={false} bordered scroll={{ x: 'max-content' }}>
+            <Column title='ID' dataIndex='id' key='id' width={60} align='center' />
+            <Column title='Tên sản phẩm' dataIndex='title' key='title' width={400} />
+            <Column title='Phân loại' dataIndex='category' key='category' width={200} />
+            <Column title='Giá' dataIndex='price' key='price' width={200} />
+            <Column
+              title='Hình ảnh'
+              dataIndex='image'
+              key='image'
+              width={150}
+              render={(value, record) => {
+                return (
+                  <div className='w-full flex items-center justify-center'>
+                    <div className='w-[50px] h-[50px] flex items-center justify-center'>
+                      <img
+                        className='w-full h-full object-cover'
+                        src={value}
+                        alt={`${record?.id}-img`}
+                      />
+                    </div>
+                  </div>
+                );
+              }}
+            />
+            <Column
+              title='Thao tác'
+              key='action'
+              width={200}
+              render={(_, record) => {
+                return (
+                  <div className='flex items-center gap-2'>
+                    <Button
+                      color='geekblue'
+                      variant='solid'
+                      onClick={() => {
+                        navigate(`/management/products/detail/${record?.id}`);
+                      }}
+                    >
+                      Xem
+                    </Button>
 
-                <Button
-                  color='gold'
-                  variant='solid'
-                  onClick={() => {
-                    navigate(`/management/products/edit/${record?.id}`);
-                  }}
-                >
-                  Sửa
-                </Button>
-              </div>
-            );
-          }}
-        />
-      </Table>
+                    <Button
+                      color='gold'
+                      variant='solid'
+                      onClick={() => {
+                        navigate(`/management/products/edit/${record?.id}`);
+                      }}
+                    >
+                      Sửa
+                    </Button>
+                  </div>
+                );
+              }}
+            />
+          </Table>
 
-      <div className='flex items-center justify-between'>
-        <span>
-          {total}/{TOTAL_PRODUCTS}
-        </span>
+          <div className='flex items-center justify-between'>
+            <span>
+              {total}/{TOTAL_PRODUCTS}
+            </span>
 
-        <Pagination
-          current={filter.page}
-          pageSize={LIMIT_PRODUCTS_PER_PAGE}
-          total={TOTAL_PRODUCTS}
-          onChange={handlePageChange}
-        />
-      </div>
+            <Pagination
+              current={filter.page}
+              pageSize={LIMIT_PRODUCTS_PER_PAGE}
+              total={TOTAL_PRODUCTS}
+              onChange={handlePageChange}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
