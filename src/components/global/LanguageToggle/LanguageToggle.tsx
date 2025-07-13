@@ -45,7 +45,7 @@ const LanguageToggle = () => {
   };
 
   return (
-    <Dropdown menu={{ items }} trigger={['click']} placement='bottomRight'>
+    <Dropdown menu={{ items, className: 'w-[100px]' }} trigger={['click']} placement='bottomRight'>
       <div
         style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         onClick={(e) => e.preventDefault()} // tránh nhảy trang

@@ -32,8 +32,16 @@ const DashboardLayout: React.FC = () => {
 
           <Layout>
             <Header
-              className='flex items-center justify-between px-[15px]'
-              style={{ background: colorBgContainer }}
+              className='flex items-center justify-between px-[15px] transition-all duration-300'
+              style={{
+                background: colorBgContainer,
+                position: 'fixed',
+                top: 0,
+                left: isOpenSidebar ? 250 : 80,
+                right: 0,
+                height: 64,
+                zIndex: 1000,
+              }}
             >
               <div className='hover:cursor-pointer' onClick={() => dispatch(toggleSidebar())}>
                 {isOpenSidebar ? (
@@ -49,7 +57,7 @@ const DashboardLayout: React.FC = () => {
               </div>
             </Header>
 
-            <Content style={{ margin: '12px' }}>
+            <Content style={{ margin: '12px', marginTop: '76px' }}>
               <div
                 className='min-h-full p-[24px]'
                 style={{
