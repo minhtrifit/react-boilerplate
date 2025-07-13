@@ -77,7 +77,7 @@ const Sidebar = (props: PropType) => {
         <div className='w-[70px] flex items-center justify-center'>
           <img
             className='w-full h-full hover:cursor-pointer'
-            src='./assets/images/logo.png'
+            src='/assets/images/logo.png'
             alt='logo'
           />
         </div>

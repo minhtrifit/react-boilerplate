@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { UserType } from '@/types';
 import { setUser } from '@/store/actions/user.action';
 import authApi from '../api/auth.api';
@@ -16,6 +16,7 @@ interface PropType {
 const AuthProvider = ({ children }: PropType) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isLoading, setIsLoading] = useState<boolean>(true); // App loading state
 
@@ -45,8 +46,9 @@ const AuthProvider = ({ children }: PropType) => {
       // Set to global store
       dispatch(setUser(AuthUser));
 
-      // Navigate to dashboard
-      navigate('/dashboard');
+      // Navigate to current path
+      const currentPath = location.pathname;
+      navigate(currentPath ?? '/dashboard');
     } catch (error) {
       Cookies.remove(APP_NAME);
 
