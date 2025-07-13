@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { toggleSidebar } from '@/store/actions/user.action';
 import {
-  UserOutlined,
-  SettingOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  HomeOutlined,
   AppstoreOutlined,
+  ShopOutlined,
+  ShoppingCartOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 
 import './styles.scss';
@@ -42,35 +44,35 @@ const Sidebar = (props: PropType) => {
   const menuItems = [
     {
       key: '/dashboard',
-      icon: <AppstoreOutlined style={{ fontSize: '18px' }} />,
+      icon: <HomeOutlined style={{ fontSize: '18px' }} />,
       label: 'Dashboard',
     },
     {
-      key: '/dashboard/users',
-      icon: <UserOutlined style={{ fontSize: '18px' }} />,
-      label: 'Users',
+      key: '/dashboard/management',
+      icon: <AppstoreOutlined style={{ fontSize: '18px' }} />,
+      label: 'Management',
       children: [
         {
-          key: '/dashboard/users/list',
-          icon: <UserOutlined style={{ fontSize: '18px' }} />,
-          label: 'User List',
+          key: '/dashboard/products',
+          icon: <ShopOutlined style={{ fontSize: '18px' }} />,
+          label: 'Products',
         },
         {
-          key: '/dashboard/users/create',
-          icon: <UserOutlined style={{ fontSize: '18px' }} />,
-          label: 'Create User',
+          key: '/dashboard/carts',
+          icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} />,
+          label: 'Carts',
         },
       ],
     },
     {
-      key: '/dashboard/settings',
+      key: '/settings',
       icon: <SettingOutlined style={{ fontSize: '18px' }} />,
       label: 'Settings',
     },
   ];
 
   return (
-    <Sider style={siderStyle} width={240} collapsible collapsed={!isOpenSidebar} trigger={null}>
+    <Sider style={siderStyle} width={250} collapsible collapsed={!isOpenSidebar} trigger={null}>
       <div className='w-full h-[64px] flex items-center px-[5px]'>
         <div className='w-[70px] flex items-center justify-center'>
           <img

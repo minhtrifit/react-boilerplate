@@ -1,7 +1,7 @@
 export function NotFoundPage() {
   return (
-    <div>
-      <h1>Not Found Page</h1>
+    <div className='w-full h-screen flex items-center justify-center'>
+      <span>Not Found Page</span>
     </div>
   );
 }

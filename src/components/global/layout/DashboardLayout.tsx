@@ -10,6 +10,8 @@ import { toggleSidebar } from '@/store/actions/user.action';
 import Sidebar from '../Sidebar/Sidebar';
 import UserDropdown from '@/components/ui/UserDropdown/UserDropdown';
 
+const APP_NAME = import.meta.env.VITE_APP_NAME;
+
 const { Header, Content, Footer } = Layout;
 
 const DashboardLayout: React.FC = () => {
@@ -34,9 +36,9 @@ const DashboardLayout: React.FC = () => {
             >
               <div className='hover:cursor-pointer' onClick={() => dispatch(toggleSidebar())}>
                 {isOpenSidebar ? (
-                  <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
-                ) : (
                   <MenuFoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
+                ) : (
+                  <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
                 )}
               </div>
 
@@ -45,9 +47,8 @@ const DashboardLayout: React.FC = () => {
 
             <Content style={{ margin: '12px' }}>
               <div
+                className='min-h-full p-[24px]'
                 style={{
-                  padding: 24,
-                  minHeight: 360,
                   background: colorBgContainer,
                 }}
               >
@@ -56,7 +57,7 @@ const DashboardLayout: React.FC = () => {
             </Content>
 
             <Footer style={{ textAlign: 'center' }}>
-              ©{new Date().getFullYear()} by minhtrifit with ❤️
+              ©{new Date().getFullYear()} by {APP_NAME} with ❤️
             </Footer>
           </Layout>
         </Layout>

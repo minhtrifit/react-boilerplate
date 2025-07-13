@@ -7,17 +7,21 @@ import DashboardLayout from '@/components/global/layout/DashboardLayout';
 import { HomePage } from '@/pages/home/HomePage';
 import { NotFoundPage } from '@/pages/not-found-page/NotFoundPage';
 import DashboardPage from '@/pages/dashboard/DashboardPage';
+import ProductPage from '@/pages/product/ProductPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: APP_ROUTE.HOME,
     element: <Layout />,
-    children: [{ path: APP_ROUTE.HOME, element: <HomePage /> }],
+    children: [{ index: true, element: <HomePage /> }],
   },
   {
-    path: '/dashboard',
+    path: APP_ROUTE.DASHBOARD,
     element: <DashboardLayout />,
-    children: [{ path: APP_ROUTE.DASHBOARD, element: <DashboardPage /> }],
+    children: [
+      { index: true, element: <DashboardPage /> },
+      { path: APP_ROUTE.PRODUCTS, element: <ProductPage /> },
+    ],
   },
   { path: '/*', element: <NotFoundPage /> },
 ]);

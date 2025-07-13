@@ -6,6 +6,7 @@ export default function AntDesignProvider({ children }: { children: React.ReactN
       theme={{
         token: {
           colorPrimary: '#78c6e3',
+          fontFamily: 'Inter, sans-serif',
         },
         components: {
           Form: {
