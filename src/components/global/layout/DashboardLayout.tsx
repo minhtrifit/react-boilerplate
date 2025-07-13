@@ -1,0 +1,68 @@
+import React from 'react';
+import { Layout, theme } from 'antd';
+import { Outlet } from 'react-router-dom';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import AuthProvider from '@/+core/provider/AuthProvider';
+import AuthProtectProvider from '@/+core/provider/AuthProtectProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { toggleSidebar } from '@/store/actions/user.action';
+import Sidebar from '../Sidebar/Sidebar';
+import UserDropdown from '@/components/ui/UserDropdown/UserDropdown';
+
+const { Header, Content, Footer } = Layout;
+
+const DashboardLayout: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  const isOpenSidebar: boolean = useSelector((state: RootState) => state.users.isOpenSidebar);
+
+  return (
+    <AuthProvider>
+      <AuthProtectProvider>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sidebar showToggle={false} />
+
+          <Layout>
+            <Header
+              className='flex items-center justify-between px-[15px]'
+              style={{ background: colorBgContainer }}
+            >
+              <div className='hover:cursor-pointer' onClick={() => dispatch(toggleSidebar())}>
+                {isOpenSidebar ? (
+                  <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
+                ) : (
+                  <MenuFoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
+                )}
+              </div>
+
+              <UserDropdown />
+            </Header>
+
+            <Content style={{ margin: '12px' }}>
+              <div
+                style={{
+                  padding: 24,
+                  minHeight: 360,
+                  background: colorBgContainer,
+                }}
+              >
+                <Outlet />
+              </div>
+            </Content>
+
+            <Footer style={{ textAlign: 'center' }}>
+              ©{new Date().getFullYear()} by minhtrifit with ❤️
+            </Footer>
+          </Layout>
+        </Layout>
+      </AuthProtectProvider>
+    </AuthProvider>
+  );
+};
+
+export default DashboardLayout;
