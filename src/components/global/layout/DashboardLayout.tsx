@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { toggleSidebar } from '@/store/actions/user.action';
 import Sidebar from '../Sidebar/Sidebar';
+import LanguageToggle from '../LanguageToggle/LanguageToggle';
 import UserDropdown from '@/components/ui/UserDropdown/UserDropdown';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
@@ -42,7 +43,10 @@ const DashboardLayout: React.FC = () => {
                 )}
               </div>
 
-              <UserDropdown />
+              <div className='flex items-center gap-8'>
+                <LanguageToggle />
+                <UserDropdown />
+              </div>
             </Header>
 
             <Content style={{ margin: '12px' }}>

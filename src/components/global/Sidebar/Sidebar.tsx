@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ interface PropType {
 const Sidebar = (props: PropType) => {
   const { showToggle = true } = props;
 
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -45,46 +47,49 @@ const Sidebar = (props: PropType) => {
     {
       key: '/dashboard',
       icon: <HomeOutlined style={{ fontSize: '18px' }} />,
-      label: 'Dashboard',
+      label: t('dashboard'),
     },
     {
       key: '/dashboard/management',
       icon: <AppstoreOutlined style={{ fontSize: '18px' }} />,
-      label: 'Management',
+      label: t('management'),
       children: [
         {
           key: '/dashboard/products',
           icon: <ShopOutlined style={{ fontSize: '18px' }} />,
-          label: 'Products',
+          label: t('products'),
         },
         {
           key: '/dashboard/carts',
           icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} />,
-          label: 'Carts',
+          label: t('carts'),
         },
       ],
     },
     {
       key: '/settings',
       icon: <SettingOutlined style={{ fontSize: '18px' }} />,
-      label: 'Settings',
+      label: t('settings'),
     },
   ];
 
   return (
     <Sider style={siderStyle} width={250} collapsible collapsed={!isOpenSidebar} trigger={null}>
       <div className='w-full h-[64px] flex items-center px-[5px]'>
-        <div className='w-[70px] flex items-center justify-center'>
-          <img
-            className='w-full h-full hover:cursor-pointer'
-            src='/assets/images/logo.png'
-            alt='logo'
-          />
-        </div>
+        <div
+          className='flex items-center hover:cursor-pointer'
+          onClick={() => {
+            navigate('/dashboard');
+          }}
+        >
+          <div className='w-[70px] flex items-center justify-center'>
+            <img className='w-full h-full' src='/assets/images/logo.png' alt='logo' />
+          </div>
 
-        {isOpenSidebar && (
-          <span className='text-primary-500 text-[1rem] font-bold'>{APP_NAME ?? 'APP NAME'}</span>
-        )}
+          {isOpenSidebar && (
+            <span className='text-primary-500 text-[1rem] font-bold'>{APP_NAME ?? 'APP NAME'}</span>
+          )}
+        </div>
       </div>
 
       <Menu

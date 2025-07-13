@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Dropdown, Avatar, Typography, Space } from 'antd';
 import { DownOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,8 @@ import { UserType } from '@/types';
 const { Text } = Typography;
 
 const UserDropdown = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,13 +25,13 @@ const UserDropdown = () => {
   const items = [
     {
       key: '1',
-      label: 'Cài đặt',
+      label: t('settings'),
       icon: <SettingOutlined />,
       onClick: () => console.log('Cài đặt'),
     },
     {
       key: '2',
-      label: 'Đăng xuất',
+      label: t('log-out'),
       icon: <LogoutOutlined />,
       onClick: () => handleLogOut(),
     },
@@ -44,7 +47,7 @@ const UserDropdown = () => {
           <Avatar src='https://github.com/shadcn.png' />
           <Text strong>{user?.name?.firstname}</Text>
 
-          <DownOutlined className='ml-3' style={{ fontSize: '10px' }} />
+          <DownOutlined className='ml-2' style={{ fontSize: '10px' }} />
         </Space>
       </div>
     </Dropdown>
