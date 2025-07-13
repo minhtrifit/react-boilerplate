@@ -24,6 +24,39 @@ export const productApi = {
       throw error;
     }
   },
+
+  addProduct: async (data: {
+    title: string;
+    price: number;
+    description: string;
+    image: string;
+    category: string;
+  }) => {
+    try {
+      const response = await axiosInstance.post('/products', data);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  updateProduct: async (
+    id: string,
+    data: {
+      title?: string;
+      price?: number;
+      description?: string;
+      image?: string;
+      category?: string;
+    },
+  ) => {
+    try {
+      const response = await axiosInstance.put(`/products/${id}`, data);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default productApi;

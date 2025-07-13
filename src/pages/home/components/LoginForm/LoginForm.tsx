@@ -78,7 +78,7 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const onError = () => {
+  const onError = (errors: any) => {
     console.error('Lỗi submit:', errors);
 
     const firstErrorKey = Object.keys(errors)[0];

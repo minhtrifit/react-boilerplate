@@ -134,7 +134,7 @@ const ProductPage = () => {
       </div>
 
       <Table dataSource={TABLE_DATA} pagination={false} bordered scroll={{ x: 'max-content' }}>
-        <Column title='ID' dataIndex='id' key='id' width={80} align='center' />
+        <Column title='ID' dataIndex='id' key='id' width={60} align='center' />
         <Column title='Tên sản phẩm' dataIndex='title' key='title' width={400} />
         <Column title='Phân loại' dataIndex='category' key='category' width={200} />
         <Column title='Giá' dataIndex='price' key='price' width={200} />
@@ -163,7 +163,7 @@ const ProductPage = () => {
           width={200}
           render={(_, record) => {
             return (
-              <div className='flex items-center gap-3'>
+              <div className='flex items-center gap-2'>
                 <Button
                   color='geekblue'
                   variant='solid'
