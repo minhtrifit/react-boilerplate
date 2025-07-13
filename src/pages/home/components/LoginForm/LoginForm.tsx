@@ -87,10 +87,14 @@ const LoginForm: React.FC = () => {
 
   return (
     <form
-      className='w-[400px] max-w-[400px] flex flex-col gap-5'
+      className='bg-[#FFF] p-4 pb-6 rounded-md w-[400px] max-w-[400px] flex flex-col gap-5'
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <h2 className='text-center'>Đăng nhập</h2>
+      <div className='flex flex-col items-center justify-center gap-3 mb-5'>
+        <img className='w-[100px] object-cover' src='./assets/images/logo.png' alt='logo' />
+
+        <span className='text-[0.8rem] text-zinc-500'>Sign in with your account!</span>
+      </div>
 
       <Controller
         control={control}
@@ -98,7 +102,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => {
           return (
             <div className='w-full flex flex-col gap-2'>
-              <label>Username</label>
+              <label className='text-[0.95rem] font-semibold text-primary-500'>Tài khoản</label>
 
               <Input
                 {...field}
@@ -122,7 +126,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => {
           return (
             <div className='w-full flex flex-col gap-2'>
-              <label>Mật khẩu</label>
+              <label className='text-[0.95rem] font-semibold text-primary-500'>Mật khẩu</label>
 
               <Input.Password
                 {...field}
