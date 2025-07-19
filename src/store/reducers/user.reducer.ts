@@ -1,11 +1,11 @@
+import axiosInstance from '@/+core/api/api.instance';
 import Cookies from 'js-cookie';
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 
 import { FulfilledAction, PendingAction, RejectedAction } from '@/types/reduxthunk.type';
 import { UserType } from '@/types';
 
-import { clearUser, setUser, toggleSidebar } from '../actions/user.action';
-import axiosInstance from '@/+core/api/api.instance';
+import { clearUser, setUser, toggleSidebar, setSidebar } from '../actions/user.action';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
@@ -50,6 +50,11 @@ const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(toggleSidebar, (state, _) => {
       state.isOpenSidebar = !state.isOpenSidebar;
+    })
+    .addCase(setSidebar, (state, action) => {
+      const value: boolean = action.payload;
+
+      state.isOpenSidebar = value;
     })
     .addCase(setUser, (state, action) => {
       const payload = action?.payload;

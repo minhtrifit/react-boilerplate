@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './pack.scss';
-
 body {
   margin: 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  // background: $primary-color;
 }

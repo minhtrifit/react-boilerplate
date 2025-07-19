@@ -87,7 +87,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <form
-      className='bg-[#FFF] p-4 pb-6 rounded-md w-[400px] max-w-[400px] flex flex-col gap-5'
+      className='bg-[#FFF] p-4 pb-6 rounded-md w-[400px] max-w-[400px] flex flex-col gap-5 shadow-md'
       onSubmit={handleSubmit(onSubmit, onError)}
     >
       <div className='flex flex-col items-center justify-center gap-3 mb-5'>

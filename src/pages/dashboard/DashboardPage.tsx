@@ -9,7 +9,7 @@ import {
 const DashboardPage = () => {
   return (
     <div>
-      <section className='grid grid-cols-2 xl:grid-cols-4 gap-5'>
+      <section className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5'>
         <Card variant='borderless' className='bg-violet-700'>
           <div>
             <Statistic

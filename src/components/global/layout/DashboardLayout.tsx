@@ -6,6 +6,7 @@ import AuthProvider from '@/+core/provider/AuthProvider';
 import AuthProtectProvider from '@/+core/provider/AuthProtectProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { toggleSidebar } from '@/store/actions/user.action';
 import Sidebar from '../Sidebar/Sidebar';
 import LanguageToggle from '../LanguageToggle/LanguageToggle';
@@ -18,6 +19,7 @@ const { Header, Content, Footer } = Layout;
 
 const DashboardLayout: React.FC = () => {
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
 
   const {
     token: { colorBgContainer },
@@ -44,13 +46,17 @@ const DashboardLayout: React.FC = () => {
                 zIndex: 1000,
               }}
             >
-              <div className='hover:cursor-pointer' onClick={() => dispatch(toggleSidebar())}>
-                {isOpenSidebar ? (
-                  <MenuFoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
-                ) : (
-                  <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
-                )}
-              </div>
+              {isMobile ? (
+                <div className='opacity-0'>field</div>
+              ) : (
+                <div className='hover:cursor-pointer' onClick={() => dispatch(toggleSidebar())}>
+                  {isOpenSidebar ? (
+                    <MenuFoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
+                  ) : (
+                    <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
+                  )}
+                </div>
+              )}
 
               <div className='hidden md:flex items-center gap-8'>
                 <LanguageToggle />

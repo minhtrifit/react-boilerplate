@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { RootState } from '@/store/store';
-import { toggleSidebar } from '@/store/actions/user.action';
+import { setSidebar, toggleSidebar } from '@/store/actions/user.action';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -35,6 +36,7 @@ const Sidebar = (props: PropType) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
 
   const isOpenSidebar: boolean = useSelector((state: RootState) => state.users.isOpenSidebar);
 
@@ -126,6 +128,11 @@ const Sidebar = (props: PropType) => {
 
     setOpenKeys([]);
   }, [selectedKey]);
+
+  useEffect(() => {
+    if (isMobile) dispatch(setSidebar(false));
+    else dispatch(setSidebar(true));
+  }, [isMobile]);
 
   return (
     <Sider style={siderStyle} width={250} collapsible collapsed={!isOpenSidebar} trigger={null}>
