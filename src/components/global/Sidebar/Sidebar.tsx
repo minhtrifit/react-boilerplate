@@ -6,18 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { RootState } from '@/store/store';
 import { setSidebar, toggleSidebar } from '@/store/actions/user.action';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  HomeOutlined,
-  AppstoreOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
-  SettingOutlined,
-  ControlOutlined,
-  UserOutlined,
-  BranchesOutlined,
-} from '@ant-design/icons';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 import './styles.scss';
 
@@ -54,46 +43,77 @@ const Sidebar = (props: PropType) => {
   const menuItems = [
     {
       key: '/dashboard',
-      icon: <HomeOutlined style={{ fontSize: '18px' }} />,
+      icon: <img className='w-[20px] h-[20px]' src='/assets/icons/home.svg' alt='home-icon' />,
       label: t('dashboard'),
     },
     {
       key: '/management',
-      icon: <AppstoreOutlined style={{ fontSize: '18px' }} />,
+      icon: (
+        <img
+          className='w-[20px] h-[20px]'
+          src='/assets/icons/management.svg'
+          alt='management-icon'
+        />
+      ),
       label: t('management'),
       children: [
         {
           key: '/management/products',
-          icon: <ShopOutlined style={{ fontSize: '18px' }} />,
+          icon: (
+            <img
+              className='w-[20px] h-[20px]'
+              src='/assets/icons/products.svg'
+              alt='products-icon'
+            />
+          ),
           label: t('products'),
         },
         {
           key: '/management/carts',
-          icon: <ShoppingCartOutlined style={{ fontSize: '18px' }} />,
+          icon: (
+            <img className='w-[20px] h-[20px]' src='/assets/icons/carts.svg' alt='carts-icon' />
+          ),
           label: t('carts'),
+        },
+        {
+          key: '/management/blogs',
+          icon: (
+            <img className='w-[20px] h-[20px]' src='/assets/icons/blogs.svg' alt='blogs-icon' />
+          ),
+          label: t('blogs'),
         },
       ],
     },
     {
-      key: '/role',
-      icon: <ControlOutlined style={{ fontSize: '18px' }} />,
-      label: t('role'),
+      key: '/roles',
+      icon: <img className='w-[20px] h-[20px]' src='/assets/icons/role.svg' alt='role-icon' />,
+      label: t('roles'),
       children: [
         {
-          key: '/role/customers',
-          icon: <UserOutlined style={{ fontSize: '18px' }} />,
+          key: '/roles/customers',
+          icon: (
+            <img
+              className='w-[20px] h-[20px]'
+              src='/assets/icons/customers.svg'
+              alt='customers-icon'
+            />
+          ),
           label: t('customers'),
         },
         {
-          key: '/role/staffs',
-          icon: <BranchesOutlined style={{ fontSize: '18px' }} />,
+          key: '/roles/staffs',
+          icon: (
+            <img className='w-[20px] h-[20px]' src='/assets/icons/staffs.svg' alt='staffs-icon' />
+          ),
           label: t('staffs'),
         },
       ],
     },
     {
       key: '/settings',
-      icon: <SettingOutlined style={{ fontSize: '18px' }} />,
+      icon: (
+        <img className='w-[20px] h-[20px]' src='/assets/icons/settings.svg' alt='settings-icon' />
+      ),
       label: t('settings'),
     },
   ];

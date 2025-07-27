@@ -10,6 +10,7 @@ import DashboardPage from '@/pages/dashboard/DashboardPage';
 import ProductPage from '@/pages/product/ProductPage';
 import AddProductPage from '@/pages/add-product/AddProductPage';
 import EditProductPage from '@/pages/edit-product/EditProductPage';
+import BlogPage from '@/pages/blog/BlogPage';
 
 export const router = createBrowserRouter([
   {
@@ -31,10 +32,11 @@ export const router = createBrowserRouter([
       { path: APP_ROUTE.EDIT_PRODUCT, element: <EditProductPage /> },
       { path: APP_ROUTE.DETAIL_PRODUCT, element: <div>DetailProductPage</div> },
       { path: APP_ROUTE.CARTS, element: <div>CartsPage</div> },
+      { path: APP_ROUTE.BLOGS, element: <BlogPage /> },
     ],
   },
   {
-    path: APP_ROUTE.ROLE,
+    path: APP_ROUTE.ROLES,
     element: <DashboardLayout />,
     children: [
       { path: APP_ROUTE.CUSTOMERS, element: <div>CustomersPage</div> },

@@ -67,9 +67,11 @@ Buid & run app with Docker
 docker-compose up -d --build
 ```
 
-## 📄 API Document <a name="api-document"></a>
+## 📄 Related Document <a name="api-document"></a>
 
-[This boilerplate using FakeStore API (click to view document)](https://fakestoreapi.com/docs)
+* [FakeStore API](https://fakestoreapi.com/docs)
+
+* [Icon repo](https://www.svgrepo.com)
 
 ## 💌 Contact
 
