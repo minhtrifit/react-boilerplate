@@ -11,6 +11,8 @@ import ProductPage from '@/pages/product/ProductPage';
 import AddProductPage from '@/pages/add-product/AddProductPage';
 import EditProductPage from '@/pages/edit-product/EditProductPage';
 import BlogPage from '@/pages/blog/BlogPage';
+import AddBlogPage from '@/pages/add-blog/AddBlogPage';
+import DetailBlogPage from '@/pages/detail-blog/DetailBlogPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,8 @@ export const router = createBrowserRouter([
       { path: APP_ROUTE.DETAIL_PRODUCT, element: <div>DetailProductPage</div> },
       { path: APP_ROUTE.CARTS, element: <div>CartsPage</div> },
       { path: APP_ROUTE.BLOGS, element: <BlogPage /> },
+      { path: APP_ROUTE.ADD_BLOG, element: <AddBlogPage /> },
+      { path: APP_ROUTE.DETAIL_BLOG, element: <DetailBlogPage /> },
     ],
   },
   {

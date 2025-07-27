@@ -8,3 +8,8 @@ export interface LoginPayload {
   username: string;
   password: string;
 }
+
+export interface BlogType {
+  id: string;
+  content: string;
+}

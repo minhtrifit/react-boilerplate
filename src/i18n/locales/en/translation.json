@@ -8,5 +8,6 @@
   "customers": "Customers",
   "staffs": "Staffs",
   "settings": "Settings",
-  "log-out": "Log out"
+  "log-out": "Log out",
+  "empty": "Not data"
 }

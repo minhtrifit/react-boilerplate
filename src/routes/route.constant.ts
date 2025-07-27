@@ -8,6 +8,8 @@ export const APP_ROUTE = {
   DETAIL_PRODUCT: 'products/detail/:id',
   CARTS: 'carts',
   BLOGS: 'blogs',
+  ADD_BLOG: 'blogs/add',
+  DETAIL_BLOG: 'blogs/detail/:id',
   ROLES: '/roles',
   CUSTOMERS: 'customers',
   STAFFS: 'staffs',
@@ -25,6 +27,8 @@ export const EDIT_PRODUCT_ROUTE = APP_ROUTE.EDIT_PRODUCT;
 export const DETAIL_PRODUCT_ROUTE = APP_ROUTE.DETAIL_PRODUCT;
 export const CARTS_ROUTE = APP_ROUTE.CARTS;
 export const BLOGS_ROUTE = APP_ROUTE.BLOGS;
+export const ADD_BLOG_ROUTE = APP_ROUTE.ADD_BLOG;
+export const DETAIL_BLOG_ROUTE = APP_ROUTE.DETAIL_BLOG;
 
 export const ROLES_ROUTE = APP_ROUTE.ROLES;
 export const CUSTOMERS_ROUTE = APP_ROUTE.CUSTOMERS;
