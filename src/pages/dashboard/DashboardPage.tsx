@@ -1,4 +1,7 @@
-import { Card, Statistic } from 'antd';
+import { useState } from 'react';
+import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
+import { Card, Statistic, DatePicker } from 'antd';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
@@ -6,9 +9,33 @@ import {
   ShoppingOutlined,
 } from '@ant-design/icons';
 
+const { RangePicker } = DatePicker;
+
 const DashboardPage = () => {
+  const { t } = useTranslation();
+
+  const [dates, setDates] = useState<[dayjs.Dayjs | null, dayjs.Dayjs | null] | null>(null);
+
   return (
-    <div>
+    <div className='flex flex-col gap-5'>
+      <section className='flex items-center justify-end gap-5'>
+        <RangePicker
+          format='DD/MM/YYYY' // Định dạng hiển thị
+          value={dates}
+          placeholder={[t('start-date'), t('end-date')]}
+          onChange={(values) => {
+            setDates(values);
+            if (values) {
+              const startDate = values[0]?.format('DD/MM/YYYY');
+              const endDate = values[1]?.format('DD/MM/YYYY');
+
+              console.log('Start date:', startDate);
+              console.log('End date:', endDate);
+            }
+          }}
+        />
+      </section>
+
       <section className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5'>
         <Card variant='borderless' className='bg-violet-700'>
           <div>

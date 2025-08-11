@@ -21,5 +21,7 @@
   "category-required": "Thể loại là bắt buộc",
   "price-min-zero": "Giá phải lớn hơn 0",
   "image-required": "Ảnh là bắt buộc",
-  "description-required": "Mô tả là bắt buộc"
+  "description-required": "Mô tả là bắt buộc",
+  "start-date": "Ngày bắt đầu",
+  "end-date": "Ngày kết thúc"
 }

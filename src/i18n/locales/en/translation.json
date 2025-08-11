@@ -21,5 +21,7 @@
   "category-required": "Category is required",
   "price-min-zero": "Price greater than 0",
   "image-required": "Image is required",
-  "description-required": "Description is required"
+  "description-required": "Description is required",
+  "start-date": "Start date",
+  "end-date": "End date"
 }
