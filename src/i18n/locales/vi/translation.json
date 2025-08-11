@@ -9,5 +9,17 @@
   "staffs": "Nhân viên",
   "settings": "Cài đặt",
   "log-out": "Đăng xuất",
-  "empty": "Không có dữ liệu"
+  "empty": "Không có dữ liệu",
+  "cancel": "Hủy",
+  "save": "Lưu",
+  "title": "Tiêu đề",
+  "category": "Thể loại",
+  "price": "Giá",
+  "image": "Ảnh",
+  "description": "Mô tả",
+  "title-required": "Tiêu đề là bắt buộc",
+  "category-required": "Thể loại là bắt buộc",
+  "price-min-zero": "Giá phải lớn hơn 0",
+  "image-required": "Ảnh là bắt buộc",
+  "description-required": "Mô tả là bắt buộc"
 }

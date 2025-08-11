@@ -9,5 +9,17 @@
   "staffs": "Staffs",
   "settings": "Settings",
   "log-out": "Log out",
-  "empty": "Not data"
+  "empty": "Not data",
+  "cancel": "Cancel",
+  "save": "Save",
+  "title": "Title",
+  "category": "Category",
+  "price": "Price",
+  "image": "Image",
+  "description": "Description",
+  "title-required": "Title is required",
+  "category-required": "Category is required",
+  "price-min-zero": "Price greater than 0",
+  "image-required": "Image is required",
+  "description-required": "Description is required"
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,6 +20,8 @@ interface PropType {
 const ProductForm = (props: PropType) => {
   const { defaultValues, isEdit, submitLoading, onFinish } = props;
 
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const categories = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
@@ -26,16 +29,21 @@ const ProductForm = (props: PropType) => {
   const [uploadingImage, setUploadingImage] = useState(false);
 
   const productSchema = z.object({
-    title: z.string().min(1, 'Vui lòng nhập tên sản phẩm'),
+    title: z.string().min(1, t('title-required')),
     category: z
       .string()
       .nullable()
       .refine((val) => val && val.length > 0, {
-        message: 'Vui lòng chọn danh mục',
+        message: t('category-required'),
       }),
-    price: z.number().min(1, 'Giá phải lớn hơn 0'),
-    image: z.string().min(1, 'Vui lòng chọn ảnh sản phẩm'),
-    description: z.string().min(1, 'Vui lòng nhập mô tả'),
+    price: z
+      .number()
+      .nullable()
+      .refine((val) => val !== null && val > 0, {
+        message: t('price-min-zero'),
+      }),
+    image: z.string().min(1, t('image-required')),
+    description: z.string().min(1, t('description-required')),
   });
 
   type ProductFormData = z.infer<typeof productSchema>;
@@ -48,12 +56,13 @@ const ProductForm = (props: PropType) => {
     setValue,
     reset,
     watch,
+    clearErrors,
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: defaultValues ?? {
       title: '',
       category: null,
-      price: 0,
+      price: null,
       image: '',
       description: '',
     },
@@ -62,6 +71,8 @@ const ProductForm = (props: PropType) => {
   const imageUrl = watch('image');
 
   const handleChange: UploadProps['onChange'] = (info) => {
+    clearErrors('image');
+
     console.log(info);
 
     setUploadingImage(true);
@@ -97,7 +108,7 @@ const ProductForm = (props: PropType) => {
           render={({ field }) => {
             return (
               <div className='flex flex-col gap-2'>
-                <label>Title</label>
+                <label>{t('title')}</label>
 
                 <Input {...field} placeholder='Nhập tên sản phẩm' />
 
@@ -117,7 +128,7 @@ const ProductForm = (props: PropType) => {
           render={({ field }) => {
             return (
               <div className='flex flex-col gap-2'>
-                <label>Category</label>
+                <label>{t('category')}</label>
 
                 <Select
                   {...field}
@@ -147,13 +158,14 @@ const ProductForm = (props: PropType) => {
           render={({ field }) => {
             return (
               <div className='w-full flex flex-col gap-2'>
-                <label>Price</label>
+                <label>{t('price')}</label>
 
                 <InputNumber
                   {...field}
                   min={0}
                   style={{ width: '100%' }}
                   onChange={(value) => field.onChange(value ?? 0)}
+                  placeholder='Nhập giá tiền'
                 />
 
                 {errors.price && (
@@ -172,7 +184,7 @@ const ProductForm = (props: PropType) => {
           render={() => {
             return (
               <div className='w-full flex flex-col gap-2'>
-                <label>Image</label>
+                <label>{t('image')}</label>
 
                 <div className='flex items-center gap-5'>
                   <Upload
@@ -218,9 +230,13 @@ const ProductForm = (props: PropType) => {
           render={({ field }) => {
             return (
               <div className='w-full flex flex-col gap-2'>
-                <label>Description</label>
+                <label>{t('description')}</label>
 
-                <Input.TextArea {...field} autoSize={{ minRows: 5, maxRows: 5 }} />
+                <Input.TextArea
+                  {...field}
+                  autoSize={{ minRows: 5, maxRows: 5 }}
+                  placeholder='Nhập mô tả'
+                />
 
                 {errors.description && (
                   <Text type='danger' style={{ fontSize: 12 }}>
@@ -241,11 +257,11 @@ const ProductForm = (props: PropType) => {
             navigate('/management/products');
           }}
         >
-          Hủy
+          {t('cancel')}
         </Button>
 
         <Button type='primary' htmlType='submit' disabled={submitLoading} loading={submitLoading}>
-          Lưu
+          {t('save')}
         </Button>
       </div>
     </form>
