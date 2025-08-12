@@ -13,6 +13,8 @@ import EditProductPage from '@/pages/edit-product/EditProductPage';
 import BlogPage from '@/pages/blog/BlogPage';
 import AddBlogPage from '@/pages/add-blog/AddBlogPage';
 import DetailBlogPage from '@/pages/detail-blog/DetailBlogPage';
+import CartPage from '@/pages/cart/CartPage';
+import AddCartPage from '@/pages/add-cart/AddCartPage';
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +35,8 @@ export const router = createBrowserRouter([
       { path: APP_ROUTE.ADD_PRODUCT, element: <AddProductPage /> },
       { path: APP_ROUTE.EDIT_PRODUCT, element: <EditProductPage /> },
       { path: APP_ROUTE.DETAIL_PRODUCT, element: <div>DetailProductPage</div> },
-      { path: APP_ROUTE.CARTS, element: <div>CartsPage</div> },
+      { path: APP_ROUTE.CARTS, element: <CartPage /> },
+      { path: APP_ROUTE.ADD_CART, element: <AddCartPage /> },
       { path: APP_ROUTE.BLOGS, element: <BlogPage /> },
       { path: APP_ROUTE.ADD_BLOG, element: <AddBlogPage /> },
       { path: APP_ROUTE.DETAIL_BLOG, element: <DetailBlogPage /> },

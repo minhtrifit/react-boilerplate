@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
-import { Input, InputNumber, Button, Select, Typography, Upload } from 'antd';
+import { Input, InputNumber, Button, Select, Typography, Upload, Form } from 'antd';
 import type { UploadProps } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -78,7 +78,7 @@ const ProductForm = (props: PropType) => {
     setUploadingImage(true);
 
     setTimeout(() => {
-      setValue('image', 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg');
+      setValue('image', 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png');
       setUploadingImage(false);
     }, 2000);
   };
@@ -110,7 +110,9 @@ const ProductForm = (props: PropType) => {
               <div className='flex flex-col gap-2'>
                 <label>{t('title')}</label>
 
-                <Input {...field} placeholder='Nhập tên sản phẩm' />
+                <Form.Item validateStatus={errors.title ? 'error' : undefined}>
+                  <Input {...field} placeholder='Nhập tên sản phẩm' />
+                </Form.Item>
 
                 {errors.title && (
                   <Text type='danger' style={{ fontSize: 12 }}>
@@ -130,17 +132,19 @@ const ProductForm = (props: PropType) => {
               <div className='flex flex-col gap-2'>
                 <label>{t('category')}</label>
 
-                <Select
-                  {...field}
-                  onChange={(value) => field.onChange(value)}
-                  placeholder='Chọn danh mục'
-                >
-                  {categories.map((cat) => (
-                    <Select.Option key={cat} value={cat}>
-                      {cat}
-                    </Select.Option>
-                  ))}
-                </Select>
+                <Form.Item validateStatus={errors.category ? 'error' : undefined}>
+                  <Select
+                    {...field}
+                    onChange={(value) => field.onChange(value)}
+                    placeholder='Chọn danh mục'
+                  >
+                    {categories.map((cat) => (
+                      <Select.Option key={cat} value={cat}>
+                        {cat}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
 
                 {errors.category && (
                   <Text type='danger' style={{ fontSize: 12 }}>
@@ -160,13 +164,15 @@ const ProductForm = (props: PropType) => {
               <div className='w-full flex flex-col gap-2'>
                 <label>{t('price')}</label>
 
-                <InputNumber
-                  {...field}
-                  min={0}
-                  style={{ width: '100%' }}
-                  onChange={(value) => field.onChange(value ?? 0)}
-                  placeholder='Nhập giá tiền'
-                />
+                <Form.Item validateStatus={errors.price ? 'error' : undefined}>
+                  <InputNumber
+                    {...field}
+                    min={0}
+                    style={{ width: '100%' }}
+                    onChange={(value) => field.onChange(value ?? 0)}
+                    placeholder='Nhập giá tiền'
+                  />
+                </Form.Item>
 
                 {errors.price && (
                   <Text type='danger' style={{ fontSize: 12 }}>
@@ -232,11 +238,13 @@ const ProductForm = (props: PropType) => {
               <div className='w-full flex flex-col gap-2'>
                 <label>{t('description')}</label>
 
-                <Input.TextArea
-                  {...field}
-                  autoSize={{ minRows: 5, maxRows: 5 }}
-                  placeholder='Nhập mô tả'
-                />
+                <Form.Item validateStatus={errors.description ? 'error' : undefined}>
+                  <Input.TextArea
+                    {...field}
+                    autoSize={{ minRows: 5, maxRows: 5 }}
+                    placeholder='Nhập mô tả'
+                  />
+                </Form.Item>
 
                 {errors.description && (
                   <Text type='danger' style={{ fontSize: 12 }}>
