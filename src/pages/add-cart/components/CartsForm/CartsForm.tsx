@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form, Input, InputNumber, Typography } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import Editor from '../Editor/Editor';
 
 interface PropType {
   defaultValues: any;
@@ -16,6 +17,7 @@ const CartsForm = (props: PropType) => {
 
   const cartItemSchema = z.object({
     title: z.string().min(1, 'Vui lòng nhập tên sản phẩm'),
+    description: z.string().min(1, 'Vui lòng nhập mô tả'),
     quantity: z
       .number()
       .min(1, 'Số lượng phải lớn hơn 0')
@@ -39,7 +41,7 @@ const CartsForm = (props: PropType) => {
   } = useForm<FormType>({
     resolver: zodResolver(schema),
     defaultValues: {
-      carts: [{ title: '', quantity: 1 }],
+      carts: [{ title: '', description: '', quantity: 1 }],
     },
   });
 
@@ -48,7 +50,7 @@ const CartsForm = (props: PropType) => {
     name: 'carts',
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = (data: any) => {
     onFinish(data);
     reset();
   };
@@ -57,66 +59,79 @@ const CartsForm = (props: PropType) => {
     console.error('Lỗi submit:', errors);
 
     const firstErrorKey = Object.keys(errors)[0];
-
-    if (firstErrorKey) {
-      // Nếu là carts -> focus vào phần tử con đầu tiên bị lỗi
-      if (firstErrorKey === 'carts') {
-        const firstCartErrorIndex = Number(Object.keys(errors.carts || {})[0]);
-        const firstCartFieldKey = Object.keys((errors.carts as any)[firstCartErrorIndex] || {})[0];
-        if (firstCartFieldKey) {
-          setFocus(`carts.${firstCartErrorIndex}.${firstCartFieldKey}` as any);
-        }
-      } else {
-        setFocus(firstErrorKey as any);
+    if (firstErrorKey === 'carts') {
+      const firstCartErrorIndex = Number(Object.keys(errors.carts || {})[0]);
+      const firstCartFieldKey = Object.keys((errors.carts as any)[firstCartErrorIndex] || {})[0];
+      if (firstCartFieldKey && firstCartFieldKey !== 'description') {
+        setFocus(`carts.${firstCartErrorIndex}.${firstCartFieldKey}` as any);
       }
+      // Nếu là description thì scroll tới đó
+      if (firstCartFieldKey === 'description') {
+        const el = document.querySelector(
+          `[data-quill-index="${firstCartErrorIndex}"] .ql-editor`,
+        ) as HTMLElement;
+        el?.focus();
+      }
+    } else {
+      setFocus(firstErrorKey as any);
     }
   };
 
   return (
-    <Form
-      layout='vertical'
-      className='flex flex-col gap-5'
-      onFinish={handleSubmit(onSubmit, onError)}
-    >
+    <Form className='flex flex-col gap-5' onFinish={handleSubmit(onSubmit, onError)}>
       <span className='font-bold text-xl text-primary-500'>
         {!isEdit ? 'Thêm mới' : 'Chỉnh sửa'} giỏ hàng
       </span>
 
       <div className='flex flex-col gap-5'>
         {fields.map((field, index) => (
-          <div key={field.id} className='h-full flex items-start gap-5'>
-            {/* Title */}
-            <Form.Item
-              label='Tên sản phẩm'
-              validateStatus={errors.carts?.[index]?.title ? 'error' : undefined}
-              help={errors.carts?.[index]?.title?.message}
-            >
-              <Controller
-                control={control}
-                name={`carts.${index}.title`}
-                render={({ field }) => <Input placeholder='Nhập tên sản phẩm' {...field} />}
-              />
-            </Form.Item>
+          <div key={field.id} className='h-full flex flex-col gap-3'>
+            <div className='flex items-start gap-5'>
+              {/* Title */}
+              <Form.Item
+                validateStatus={errors.carts?.[index]?.title ? 'error' : undefined}
+                help={errors.carts?.[index]?.title?.message}
+              >
+                <Controller
+                  control={control}
+                  name={`carts.${index}.title`}
+                  render={({ field }) => <Input placeholder='Nhập tên sản phẩm' {...field} />}
+                />
+              </Form.Item>
 
-            {/* Quantity */}
-            <Form.Item
-              label='Số lượng'
-              validateStatus={errors.carts?.[index]?.quantity ? 'error' : undefined}
-              help={errors.carts?.[index]?.quantity?.message}
-            >
-              <Controller
-                control={control}
-                name={`carts.${index}.quantity`}
-                render={({ field }) => <InputNumber min={1} {...field} />}
-              />
-            </Form.Item>
+              {/* Quantity */}
+              <Form.Item
+                validateStatus={errors.carts?.[index]?.quantity ? 'error' : undefined}
+                help={errors.carts?.[index]?.quantity?.message}
+              >
+                <Controller
+                  control={control}
+                  name={`carts.${index}.quantity`}
+                  render={({ field }) => <InputNumber min={1} {...field} />}
+                />
+              </Form.Item>
 
-            <div className='mt-[35px]'>
-              <MinusCircleOutlined
-                onClick={() => remove(index)}
-                style={{ color: 'red', fontSize: 18 }}
-              />
+              <Form.Item>
+                <MinusCircleOutlined
+                  onClick={() => remove(index)}
+                  style={{ color: 'red', fontSize: 18 }}
+                />
+              </Form.Item>
             </div>
+
+            {/* Description */}
+            <Form.Item
+              validateStatus={errors.carts?.[index]?.description ? 'error' : undefined}
+              help={errors.carts?.[index]?.description?.message}
+            >
+              <Controller
+                control={control}
+                name={`carts.${index}.description`}
+                render={({ field }) => (
+                  <Editor value={field.value} onChange={field.onChange} height={300} />
+                )}
+              />
+            </Form.Item>
           </div>
         ))}
       </div>
@@ -124,7 +139,7 @@ const CartsForm = (props: PropType) => {
       <Form.Item>
         <Button
           type='dashed'
-          onClick={() => append({ title: '', quantity: 1 })}
+          onClick={() => append({ title: '', description: '', quantity: 1 })}
           icon={<PlusOutlined />}
         >
           Thêm sản phẩm
@@ -136,7 +151,7 @@ const CartsForm = (props: PropType) => {
       )}
 
       <Form.Item>
-        <Button type='primary' htmlType='submit'>
+        <Button type='primary' htmlType='submit' loading={submitLoading}>
           Lưu
         </Button>
       </Form.Item>
