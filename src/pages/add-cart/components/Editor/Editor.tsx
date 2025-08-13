@@ -26,7 +26,8 @@ const Editor = ({ value, onChange, height = 500 }: PropType) => {
               [{ list: 'ordered' }, { list: 'bullet' }],
               [{ indent: '-1' }, { indent: '+1' }],
               [{ align: [] }],
-              ['image', 'code-block'],
+              [{ color: [] }, { background: [] }],
+              ['image', 'code-block', 'link'],
               ['undo', 'redo'],
             ],
             handlers: {
