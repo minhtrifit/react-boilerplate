@@ -1,5 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { APP_ROUTE } from './route.constant';
+import {
+  DEFAULT_ROUTE,
+  DASHBOARD_ROUTE,
+  MANAGEMENT_ROUTE,
+  PRODUCT_ROUTE,
+  ADD_PRODUCT_ROUTE,
+  EDIT_PRODUCT_ROUTE,
+  DETAIL_PRODUCT_ROUTE,
+  CARTS_ROUTE,
+  ADD_CART_ROUTE,
+  BLOGS_ROUTE,
+  ADD_BLOG_ROUTE,
+  DETAIL_BLOG_ROUTE,
+  ROLES_ROUTE,
+  CUSTOMERS_ROUTE,
+  STAFFS_ROUTE,
+  SETTINGS_ROUTE,
+} from './route.constant';
 
 import Layout from '@/components/global/layout/Layout';
 import DashboardLayout from '@/components/global/layout/DashboardLayout';
@@ -18,40 +35,43 @@ import AddCartPage from '@/pages/add-cart/AddCartPage';
 
 export const router = createBrowserRouter([
   {
-    path: APP_ROUTE.HOME,
+    path: DEFAULT_ROUTE,
     element: <Layout />,
     children: [{ index: true, element: <HomePage /> }],
   },
   {
-    path: APP_ROUTE.DASHBOARD,
+    path: DASHBOARD_ROUTE,
     element: <DashboardLayout />,
     children: [{ index: true, element: <DashboardPage /> }],
   },
   {
-    path: APP_ROUTE.MANAGMENT,
+    path: MANAGEMENT_ROUTE,
     element: <DashboardLayout />,
     children: [
-      { path: APP_ROUTE.PRODUCTS, element: <ProductPage /> },
-      { path: APP_ROUTE.ADD_PRODUCT, element: <AddProductPage /> },
-      { path: APP_ROUTE.EDIT_PRODUCT, element: <EditProductPage /> },
-      { path: APP_ROUTE.DETAIL_PRODUCT, element: <div>DetailProductPage</div> },
-      { path: APP_ROUTE.CARTS, element: <CartPage /> },
-      { path: APP_ROUTE.ADD_CART, element: <AddCartPage /> },
-      { path: APP_ROUTE.BLOGS, element: <BlogPage /> },
-      { path: APP_ROUTE.ADD_BLOG, element: <AddBlogPage /> },
-      { path: APP_ROUTE.DETAIL_BLOG, element: <DetailBlogPage /> },
+      // Products
+      { path: PRODUCT_ROUTE, element: <ProductPage /> },
+      { path: ADD_PRODUCT_ROUTE, element: <AddProductPage /> },
+      { path: EDIT_PRODUCT_ROUTE, element: <EditProductPage /> },
+      { path: DETAIL_PRODUCT_ROUTE, element: <div>DetailProductPage</div> },
+      // Carts
+      { path: CARTS_ROUTE, element: <CartPage /> },
+      { path: ADD_CART_ROUTE, element: <AddCartPage /> },
+      // Blogs
+      { path: BLOGS_ROUTE, element: <BlogPage /> },
+      { path: ADD_BLOG_ROUTE, element: <AddBlogPage /> },
+      { path: DETAIL_BLOG_ROUTE, element: <DetailBlogPage /> },
     ],
   },
   {
-    path: APP_ROUTE.ROLES,
+    path: ROLES_ROUTE,
     element: <DashboardLayout />,
     children: [
-      { path: APP_ROUTE.CUSTOMERS, element: <div>CustomersPage</div> },
-      { path: APP_ROUTE.STAFFS, element: <div>StaffsPage</div> },
+      { path: CUSTOMERS_ROUTE, element: <div>CustomersPage</div> },
+      { path: STAFFS_ROUTE, element: <div>StaffsPage</div> },
     ],
   },
   {
-    path: APP_ROUTE.SETTINGS,
+    path: SETTINGS_ROUTE,
     element: <DashboardLayout />,
     children: [{ index: true, element: <div>SettingsPage</div> }],
   },

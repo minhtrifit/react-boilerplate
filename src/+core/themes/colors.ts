@@ -1,5 +1,7 @@
 export default {
-  primary: {
+  primary: '#14b3ea',
+  dark: '#252422',
+  blue: {
     900: '#0A2277',
     800: '#3D64EE',
     600: '#4EA8B4',

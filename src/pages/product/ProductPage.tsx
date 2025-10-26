@@ -1,9 +1,13 @@
 import { useMemo, useState } from 'react';
-import { Button, Input, Pagination, Table, Select } from 'antd';
+import { get, map } from 'lodash';
+import { Button, Input, Table, Select, TablePaginationConfig, Tooltip } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useGetProducts } from './hooks/useGetProducts';
-import Loading from './components/Loading';
+import { useQueryParams } from '@/hooks/useQueryParams';
+import { ADD_PRODUCT_ROUTE } from '@/routes/route.constant';
+import { FaEye, FaPen } from 'react-icons/fa';
+import Loading from './components/Loading/Loading';
 
 const { Column } = Table;
 
@@ -18,13 +22,11 @@ const ProductPage = () => {
   ];
 
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { searchParams, updateParams } = useQueryParams();
 
-  const page = searchParams.get('page');
-  const query = searchParams.get('query');
-  const category = searchParams.get('category');
-
-  const paramsObject = Object.fromEntries(searchParams.entries());
+  const page = searchParams.get('page') ?? 1;
+  const query = searchParams.get('query') ?? '';
+  const category = searchParams.get('category') ?? null;
 
   const [filter, setFilter] = useState({
     page: Number(page ?? 1),
@@ -40,15 +42,15 @@ const ProductPage = () => {
   });
 
   const TABLE_DATA = useMemo(() => {
-    return data?.map((item) => {
-      return { ...item, key: item?.id };
-    });
+    if (!data) return [];
+
+    return map(data, (item) => ({ ...item, key: item?.id }));
   }, [data]);
 
   const handlePageChange = (page: number) => {
     setFilter({ ...filter, page: page });
     setParams({ ...params, page: page });
-    setSearchParams({ ...paramsObject, page: page.toString() });
+    updateParams({ page: page.toString() });
   };
 
   const handleChangeFilter = (key: string, value: string) => {
@@ -70,7 +72,7 @@ const ProductPage = () => {
       limit: LIMIT_PRODUCTS_PER_PAGE,
     });
 
-    setSearchParams({
+    updateParams({
       page: '1',
       query: filter.query,
       category: filter.category ?? '',
@@ -79,7 +81,8 @@ const ProductPage = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='w-full flex flex-wrap items-center justify-between gap-3'>
+      {/* Filter */}
+      <div className='block__container w-full flex flex-wrap items-center justify-between gap-3'>
         <div className='flex flex-wrap items-center gap-3'>
           <Input
             style={{ width: 300 }}
@@ -122,87 +125,91 @@ const ProductPage = () => {
           variant='solid'
           icon={<PlusOutlined />}
           onClick={() => {
-            navigate('/management/products/add');
+            navigate(ADD_PRODUCT_ROUTE);
           }}
         >
           Thêm mới
         </Button>
       </div>
 
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <Table dataSource={TABLE_DATA} pagination={false} bordered scroll={{ x: 'max-content' }}>
-            <Column title='ID' dataIndex='id' key='id' width={60} align='center' />
-            <Column title='Tên sản phẩm' dataIndex='title' key='title' width={400} />
-            <Column title='Phân loại' dataIndex='category' key='category' width={200} />
-            <Column title='Giá' dataIndex='price' key='price' width={200} />
-            <Column
-              title='Hình ảnh'
-              dataIndex='image'
-              key='image'
-              width={150}
-              render={(value, record) => {
-                return (
-                  <div className='w-full flex items-center justify-center'>
-                    <div className='w-[50px] h-[50px] flex items-center justify-center'>
-                      <img
-                        className='w-full h-full object-cover'
-                        src={value}
-                        alt={`${record?.id}-img`}
-                      />
+      {/* DataTable */}
+      <div className='block__container w-full'>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <Table
+              dataSource={TABLE_DATA}
+              bordered
+              scroll={{ x: 'max-content' }}
+              pagination={{
+                current: filter.page,
+                pageSize: LIMIT_PRODUCTS_PER_PAGE,
+                total: TOTAL_PRODUCTS,
+              }}
+              onChange={(value: TablePaginationConfig) => {
+                if (value.current) handlePageChange(value.current);
+              }}
+            >
+              <Column title='ID' dataIndex='id' key='id' width={60} align='center' />
+              <Column title='Tên sản phẩm' dataIndex='title' key='title' width={400} />
+              <Column title='Phân loại' dataIndex='category' key='category' width={200} />
+              <Column title='Giá' dataIndex='price' key='price' width={200} />
+              <Column
+                title='Hình ảnh'
+                dataIndex='image'
+                key='image'
+                width={150}
+                render={(value, record) => {
+                  return (
+                    <div className='w-full flex items-center justify-center'>
+                      <div className='w-[50px] h-[50px] flex items-center justify-center'>
+                        <img
+                          className='w-full h-full object-cover'
+                          src={value}
+                          alt={`${get(record, 'id', '')}-img`}
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              }}
-            />
-            <Column
-              title='Thao tác'
-              key='action'
-              width={200}
-              render={(_, record) => {
-                return (
-                  <div className='flex items-center gap-2'>
-                    <Button
-                      color='geekblue'
-                      variant='solid'
-                      onClick={() => {
-                        navigate(`/management/products/detail/${record?.id}`);
-                      }}
-                    >
-                      Xem
-                    </Button>
+                  );
+                }}
+              />
+              <Column
+                title='Thao tác'
+                key='action'
+                width={200}
+                render={(_, record) => {
+                  return (
+                    <div className='flex items-center gap-2'>
+                      <Tooltip title='Xem chi tiết'>
+                        <Button
+                          color='primary'
+                          variant='solid'
+                          icon={<FaEye />}
+                          onClick={() => {
+                            navigate(`/management/products/detail/${get(record, 'id', '')}`);
+                          }}
+                        />
+                      </Tooltip>
 
-                    <Button
-                      color='gold'
-                      variant='solid'
-                      onClick={() => {
-                        navigate(`/management/products/edit/${record?.id}`);
-                      }}
-                    >
-                      Sửa
-                    </Button>
-                  </div>
-                );
-              }}
-            />
-          </Table>
-
-          <div className='flex items-center justify-between'>
-            <span>
-              {total}/{TOTAL_PRODUCTS}
-            </span>
-
-            <Pagination
-              current={filter.page}
-              pageSize={LIMIT_PRODUCTS_PER_PAGE}
-              total={TOTAL_PRODUCTS}
-              onChange={handlePageChange}
-            />
-          </div>
-        </>
-      )}
+                      <Tooltip title='Chỉnh sửa'>
+                        <Button
+                          color='gold'
+                          variant='solid'
+                          icon={<FaPen />}
+                          onClick={() => {
+                            navigate(`/management/products/edit/${get(record, 'id', '')}`);
+                          }}
+                        />
+                      </Tooltip>
+                    </div>
+                  );
+                }}
+              />
+            </Table>
+          </>
+        )}
+      </div>
     </div>
   );
 };

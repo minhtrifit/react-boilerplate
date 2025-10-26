@@ -79,7 +79,7 @@ const CartsForm = (props: PropType) => {
 
   return (
     <Form className='flex flex-col gap-5' onFinish={handleSubmit(onSubmit, onError)}>
-      <span className='font-bold text-xl text-primary-500'>
+      <span className='font-bold text-xl text-primary'>
         {!isEdit ? 'Thêm mới' : 'Chỉnh sửa'} giỏ hàng
       </span>
 

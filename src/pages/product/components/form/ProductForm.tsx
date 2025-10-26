@@ -7,18 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import { Input, InputNumber, Button, Select, Typography, Upload, Form } from 'antd';
 import type { UploadProps } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { handleRenderFormModeText } from '@/+core/helpers';
 
 const { Text } = Typography;
 
 interface PropType {
   defaultValues: any;
-  isEdit: boolean;
+  mode: 'create' | 'edit' | 'view';
   submitLoading: boolean;
   onFinish: (data: any) => void;
 }
 
 const ProductForm = (props: PropType) => {
-  const { defaultValues, isEdit, submitLoading, onFinish } = props;
+  const { defaultValues, mode, submitLoading, onFinish } = props;
 
   const { t } = useTranslation();
 
@@ -96,9 +97,9 @@ const ProductForm = (props: PropType) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <span className='font-bold text-xl text-primary-500'>
-        {!isEdit ? 'Thêm mới' : 'Chỉnh sửa'} sản phẩm
+    <form className='block__container' onSubmit={handleSubmit(onSubmit, onError)}>
+      <span className='text-xl text-primary font-bold'>
+        {handleRenderFormModeText(mode)} sản phẩm
       </span>
 
       <div className='mt-5 grid grid-cols-1 xl:grid-cols-2 gap-5'>

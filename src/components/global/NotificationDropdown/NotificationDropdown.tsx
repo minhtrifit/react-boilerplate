@@ -18,7 +18,7 @@ const NotificationDropdown = () => {
             </div>
           </div>
 
-          <div className='w-[8px] h-[8px] bg-primary-500 rounded-full'></div>
+          <div className='w-[8px] h-[8px] bg-primary rounded-full'></div>
         </div>
       ),
       onClick: () => console.log('Xem thông báo 1'),
@@ -38,7 +38,7 @@ const NotificationDropdown = () => {
             </div>
           </div>
 
-          <div className='w-[8px] h-[8px] bg-primary-500 rounded-full'></div>
+          <div className='w-[8px] h-[8px] bg-primary rounded-full'></div>
         </div>
       ),
       onClick: () => console.log('Xem thông báo 2'),

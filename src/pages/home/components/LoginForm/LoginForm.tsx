@@ -102,7 +102,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => {
           return (
             <div className='w-full flex flex-col gap-2'>
-              <label className='text-[0.95rem] font-semibold text-primary-500'>Tài khoản</label>
+              <label className='text-[0.95rem] font-semibold text-primary'>Tài khoản</label>
 
               <Input
                 {...field}
@@ -126,7 +126,7 @@ const LoginForm: React.FC = () => {
         render={({ field }) => {
           return (
             <div className='w-full flex flex-col gap-2'>
-              <label className='text-[0.95rem] font-semibold text-primary-500'>Mật khẩu</label>
+              <label className='text-[0.95rem] font-semibold text-primary'>Mật khẩu</label>
 
               <Input.Password
                 {...field}

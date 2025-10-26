@@ -1,14 +1,17 @@
+import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Editor from './components/Editor/Editor';
+import { message } from 'antd';
 import { updateBlog } from '@/store/actions/user.action';
 import { BlogType } from '@/types';
-import { message } from 'antd';
+import { TextEditor } from '@/components/ui/TextEditor/TextEditor';
 
 const AddBlogPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [value, setValue] = useState<string>('');
 
   const handleSubmitBlog = async (content: string) => {
     try {
@@ -33,7 +36,13 @@ const AddBlogPage = () => {
 
   return (
     <div>
-      <Editor onSubmit={handleSubmitBlog} />
+      <TextEditor
+        key='blog_content'
+        height={500}
+        placeholder={'Nhập nội dung'}
+        value={value}
+        onChange={(data) => setValue(data)}
+      />
     </div>
   );
 };

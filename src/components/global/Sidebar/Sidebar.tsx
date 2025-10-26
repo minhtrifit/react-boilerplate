@@ -6,9 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { RootState } from '@/store/store';
 import { setSidebar, toggleSidebar } from '@/store/actions/user.action';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { IoHome, IoSettings } from 'react-icons/io5';
+import { AiFillAppstore, AiOutlineShoppingCart } from 'react-icons/ai';
+import { FiShoppingBag } from 'react-icons/fi';
+import { FaBook, FaKey, FaUser, FaUserTie } from 'react-icons/fa';
 
-import './styles.scss';
+import styles from './styles.module.scss';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
@@ -32,7 +35,7 @@ const Sidebar = (props: PropType) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
   const siderStyle: React.CSSProperties = {
-    background: '#fff',
+    background: '#252422',
     overflow: 'auto',
     height: '100vh',
     position: 'sticky',
@@ -43,77 +46,51 @@ const Sidebar = (props: PropType) => {
   const menuItems = [
     {
       key: '/dashboard',
-      icon: <img className='w-[20px] h-[20px]' src='/assets/icons/home.svg' alt='home-icon' />,
+      icon: <IoHome size={20} />,
       label: t('dashboard'),
     },
     {
       key: '/management',
-      icon: (
-        <img
-          className='w-[20px] h-[20px]'
-          src='/assets/icons/management.svg'
-          alt='management-icon'
-        />
-      ),
+      icon: <AiFillAppstore size={20} />,
       label: t('management'),
       children: [
         {
           key: '/management/products',
-          icon: (
-            <img
-              className='w-[20px] h-[20px]'
-              src='/assets/icons/products.svg'
-              alt='products-icon'
-            />
-          ),
+          icon: <FiShoppingBag size={20} />,
           label: t('products'),
         },
         {
           key: '/management/carts',
-          icon: (
-            <img className='w-[20px] h-[20px]' src='/assets/icons/carts.svg' alt='carts-icon' />
-          ),
+          icon: <AiOutlineShoppingCart size={20} />,
           label: t('carts'),
         },
         {
           key: '/management/blogs',
-          icon: (
-            <img className='w-[20px] h-[20px]' src='/assets/icons/blogs.svg' alt='blogs-icon' />
-          ),
+          icon: <FaBook size={20} />,
           label: t('blogs'),
         },
       ],
     },
     {
       key: '/roles',
-      icon: <img className='w-[20px] h-[20px]' src='/assets/icons/role.svg' alt='role-icon' />,
+      icon: <FaKey size={18} />,
       label: t('roles'),
       children: [
         {
           key: '/roles/customers',
-          icon: (
-            <img
-              className='w-[20px] h-[20px]'
-              src='/assets/icons/customers.svg'
-              alt='customers-icon'
-            />
-          ),
+          icon: <FaUser size={20} />,
           label: t('customers'),
         },
         {
           key: '/roles/staffs',
-          icon: (
-            <img className='w-[20px] h-[20px]' src='/assets/icons/staffs.svg' alt='staffs-icon' />
-          ),
+          icon: <FaUserTie size={20} />,
           label: t('staffs'),
         },
       ],
     },
     {
       key: '/settings',
-      icon: (
-        <img className='w-[20px] h-[20px]' src='/assets/icons/settings.svg' alt='settings-icon' />
-      ),
+      icon: <IoSettings size={20} />,
       label: t('settings'),
     },
   ];
@@ -155,27 +132,28 @@ const Sidebar = (props: PropType) => {
   }, [isMobile]);
 
   return (
-    <Sider style={siderStyle} width={250} collapsible collapsed={!isOpenSidebar} trigger={null}>
-      <div className='w-full h-[64px] flex items-center px-[5px]'>
-        <div
-          className='flex items-center hover:cursor-pointer'
-          onClick={() => {
-            navigate('/dashboard');
-          }}
-        >
-          <div className='w-[70px] flex items-center justify-center'>
-            <img className='w-full h-full' src='/assets/images/logo.png' alt='logo' />
+    <Sider style={siderStyle} width={260} collapsible collapsed={!isOpenSidebar} trigger={null}>
+      {/* Header */}
+      <div
+        className={`fixed bg-dark z-10 h-[64px] flex items-center px-[20px] ${
+          isOpenSidebar ? 'w-[260px]' : 'w-[80px]'
+        }`}
+      >
+        <div className='w-full flex items-center justify-center'>
+          <div
+            className={`w-[80px] flex items-center justify-center hover:cursor-pointer`}
+            onClick={() => {
+              navigate('/overview');
+            }}
+          >
+            <img className='w-full h-full' src={`/assets/images/logo.png`} alt='logo' />
           </div>
-
-          {isOpenSidebar && (
-            <span className='text-primary-500 text-[1rem] font-bold'>{APP_NAME ?? 'APP NAME'}</span>
-          )}
         </div>
       </div>
 
       <Menu
-        className='[&_.ant-menu-item-selected]:font-[500]'
-        theme='light'
+        className={`${styles.sidebar} [&_.ant-menu-item-selected]:font-[500]`}
+        theme='dark'
         mode='inline'
         openKeys={openKeys}
         selectedKeys={[selectedKey]}
@@ -183,26 +161,6 @@ const Sidebar = (props: PropType) => {
         onClick={(e) => navigate(e.key)}
         items={menuItems}
       />
-
-      {showToggle && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            width: '100%',
-            padding: '12px',
-            textAlign: 'center',
-            cursor: 'pointer',
-          }}
-          onClick={() => dispatch(toggleSidebar())}
-        >
-          {isOpenSidebar ? (
-            <MenuUnfoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
-          ) : (
-            <MenuFoldOutlined style={{ color: 'black', fontSize: '1rem' }} />
-          )}
-        </div>
-      )}
     </Sider>
   );
 };

@@ -17,7 +17,7 @@ const DashboardPage = () => {
   const [dates, setDates] = useState<[dayjs.Dayjs | null, dayjs.Dayjs | null] | null>(null);
 
   return (
-    <div className='flex flex-col gap-5'>
+    <main className='block__container flex flex-col gap-5'>
       <section className='flex items-center justify-end gap-5'>
         <RangePicker
           format='DD/MM/YYYY' // Định dạng hiển thị
@@ -80,7 +80,7 @@ const DashboardPage = () => {
           />
         </Card>
       </section>
-    </div>
+    </main>
   );
 };
 

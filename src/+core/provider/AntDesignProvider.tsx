@@ -21,12 +21,35 @@ export default function AntDesignProvider({ children }: { children: React.ReactN
       locale={antdLocale}
       theme={{
         token: {
-          colorPrimary: '#78c6e3',
+          colorPrimary: '#14b3ea',
           fontFamily: 'Inter, sans-serif',
         },
         components: {
           Form: {
             itemMarginBottom: 0,
+          },
+          Input: {
+            controlHeight: 40,
+          },
+          InputNumber: {
+            controlHeight: 40,
+          },
+          Select: {
+            controlHeight: 40,
+          },
+          Button: {
+            controlHeight: 40,
+          },
+          DatePicker: {
+            controlHeight: 40,
+          },
+          Table: {
+            cellPaddingBlock: 12, // padding top/bottom (mặc định là 16)
+            cellPaddingInline: 10, // padding left/right (mặc định là 16)
+            headerBg: '#f6f8fb',
+            headerColor: '#6b7280',
+            headerBorderRadius: 0,
+            fontWeightStrong: 700,
           },
         },
       }}

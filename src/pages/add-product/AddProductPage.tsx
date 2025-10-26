@@ -1,7 +1,7 @@
-import ProductForm from '@/components/ui/ProductForm/ProductForm';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useAddProduct } from './hooks/useAddProduct';
+import ProductForm from '../product/components/form/ProductForm';
 
 const AddProductPage = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const AddProductPage = () => {
   return (
     <ProductForm
       defaultValues={null}
-      isEdit={false}
+      mode='create'
       submitLoading={loading}
       onFinish={handleSubmit}
     />

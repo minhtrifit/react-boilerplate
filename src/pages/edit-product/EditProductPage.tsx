@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { message } from 'antd';
 import { useGetDetailProduct } from './hooks/useGetDetailProduct';
-import ProductForm from '@/components/ui/ProductForm/ProductForm';
 import { useEditProduct } from './hooks/useEditProduct';
+import ProductForm from '../product/components/form/ProductForm';
 
 const EditProductPage = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const EditProductPage = () => {
     return (
       <ProductForm
         defaultValues={data}
-        isEdit={true}
+        mode={'edit'}
         submitLoading={editLoading}
         onFinish={handleSubmit}
       />
