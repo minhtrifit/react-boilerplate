@@ -8,18 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { setSidebar, toggleSidebar } from '@/store/actions/user.action';
+import { useTranslation } from 'react-i18next';
 import Sidebar from '../Sidebar/Sidebar';
 import LanguageToggle from '../LanguageToggle/LanguageToggle';
 import UserDropdown from '@/components/ui/UserDropdown/UserDropdown';
 import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
+import Footer from '../Footer/Footer';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const DashboardLayout: React.FC = () => {
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   const {
     token: { colorBgContainer },
@@ -46,7 +49,11 @@ const DashboardLayout: React.FC = () => {
   return (
     <AuthProvider>
       <AuthProtectProvider>
-        {!isMobile && (
+        {isMobile ? (
+          <div className='w-full h-screen flex items-center justify-center'>
+            <h3 className='text-[0.9rem]'>{t('app-not-support-device')}</h3>
+          </div>
+        ) : (
           <Layout style={{ minHeight: '100vh' }}>
             <Sidebar showToggle={false} />
 
@@ -82,8 +89,8 @@ const DashboardLayout: React.FC = () => {
                 </div>
 
                 <div className='flex items-center gap-8'>
-                  {/* <LanguageToggle /> */}
-                  {/* <NotificationDropdown /> */}
+                  <LanguageToggle />
+                  <NotificationDropdown />
                   <UserDropdown />
                 </div>
               </Header>

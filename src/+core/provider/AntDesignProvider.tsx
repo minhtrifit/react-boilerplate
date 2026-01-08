@@ -21,7 +21,7 @@ export default function AntDesignProvider({ children }: { children: React.ReactN
       locale={antdLocale}
       theme={{
         token: {
-          colorPrimary: '#14b3ea',
+          colorPrimary: '#003c9c',
           fontFamily: 'Inter, sans-serif',
         },
         components: {

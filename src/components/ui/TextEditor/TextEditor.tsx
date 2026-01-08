@@ -6,9 +6,10 @@ import './styles.scss';
 interface TextEditorProps {
   value: string;
   height?: number;
-  onChange: (data: any) => void;
+  onChange: (value: string) => void;
   placeholder?: string;
   toolbarSticky?: boolean;
+  error?: string;
   [x: string]: any;
 }
 
@@ -57,44 +58,39 @@ export const TextEditor = ({
   onChange,
   placeholder = '',
   toolbarSticky = false,
+  error,
   ...rest
 }: TextEditorProps) => {
-  const editor = useRef<Jodit>(null);
-  const defaultValueSet = useRef<boolean>(false);
-  const [defaultValue, setDefaultValue] = useState(value);
-
-  useEffect(() => {
-    if (defaultValue && editor.current && !defaultValueSet.current) {
-      editor.current.setEditorValue(defaultValue);
-      defaultValueSet.current = true;
-    }
-  }, [defaultValue]);
+  const editorRef = useRef<Jodit>(null);
 
   const config = useMemo(
     () => ({
       readonly: false,
-      height: height,
+      height,
       disablePlugins: ['mobile'],
-      buttons: buttons,
-      addNewLine: false,
+      buttons,
       autofocus: false,
-      toolbarSticky: false,
+      toolbarSticky,
       placeholder: placeholder || 'Start writing...',
       uploader: {
         insertImageAsBase64URI: true,
       },
     }),
-    [],
+    [height, placeholder, toolbarSticky],
   );
 
   return (
     <div className='reset-tw'>
-      <JoditEditor
-        config={config}
-        value={`${defaultValue}`}
-        className={toolbarSticky ? 'sticky-toolbar' : ''}
-        onChange={onChange}
-      />
+      <div className={`${error ? 'border-[1px] border-solid border-red-500' : ''}`}>
+        <JoditEditor
+          ref={editorRef}
+          {...rest}
+          value={value}
+          config={config}
+          className={toolbarSticky ? 'sticky-toolbar' : ''}
+          onChange={onChange}
+        />
+      </div>
     </div>
   );
 };

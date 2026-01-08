@@ -143,7 +143,7 @@ const Sidebar = (props: PropType) => {
           <div
             className={`w-[80px] flex items-center justify-center hover:cursor-pointer`}
             onClick={() => {
-              navigate('/overview');
+              navigate('/dashboard');
             }}
           >
             <img className='w-full h-full' src={`/assets/images/logo.png`} alt='logo' />

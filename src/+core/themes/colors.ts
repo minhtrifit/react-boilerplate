@@ -1,5 +1,5 @@
 export default {
-  primary: '#14b3ea',
+  primary: '#003c9c',
   dark: '#252422',
   blue: {
     900: '#0A2277',
