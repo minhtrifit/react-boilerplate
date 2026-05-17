@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import productApi from '@/+core/api/product.api';
 
-export const useGetDetailProduct = (id: string, initialParams?: Record<string, any>) => {
+export const useList = (initialParams?: Record<string, any>) => {
   const [params, setParams] = useState<Record<string, any>>(initialParams || {});
-  const [product, setProduct] = useState<any>(null);
+  const [products, setProducts] = useState<any[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
@@ -11,15 +12,16 @@ export const useGetDetailProduct = (id: string, initialParams?: Record<string, a
     try {
       setLoading(true);
 
-      const response: any = await productApi.getProductById(id, fetchParams);
+      const response: any = await productApi.getProducts(fetchParams);
 
-      console.log('Get detail product successfully:', response);
+      console.log('Get products successfully:', response);
 
-      setProduct(response?.data);
+      setProducts(response?.data);
+      setTotal(response?.data?.length);
 
       return true;
     } catch (err: any) {
-      console.log('Get detail product failed:', err);
+      console.log('Get products failed:', err);
 
       setError(err.message || 'Lỗi không xác định');
 
@@ -34,8 +36,9 @@ export const useGetDetailProduct = (id: string, initialParams?: Record<string, a
   }, [JSON.stringify(params)]);
 
   return {
-    data: product,
+    data: products,
     fetchData,
+    total,
     loading,
     error,
     params,

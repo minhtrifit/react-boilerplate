@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { BlogType } from '@/types';
-import Empty from '@/components/ui/Empty/Empty';
+import Empty from '@/components/ui/Empty';
 
 const DetailBlogPage = () => {
   const blog: BlogType | null = useSelector((state: RootState) => state.users.blog);

@@ -3,11 +3,11 @@ import { get, map } from 'lodash';
 import { Button, Input, Table, Select, TablePaginationConfig, Tooltip } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useGetProducts } from './hooks/useGetProducts';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { ADD_PRODUCT_ROUTE } from '@/routes/route.constant';
 import { FaEye, FaPen } from 'react-icons/fa';
-import Loading from './components/Loading/Loading';
+import Loading from '../components/loading';
+import { useList } from '../hooks/useList';
 
 const { Column } = Table;
 
@@ -34,7 +34,7 @@ const ProductPage = () => {
     category: category ?? undefined,
   });
 
-  const { data, loading, total, params, setParams } = useGetProducts({
+  const { data, loading, total, params, setParams } = useList({
     page: filter.page,
     search: filter.query,
     category: filter.category,

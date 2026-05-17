@@ -9,15 +9,17 @@ type ProductPayload = {
   category: string;
 };
 
-export const useAddProduct = () => {
+type UpdateProductPayload = Partial<ProductPayload>;
+
+export const useEdit = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  const addProduct = async (data: ProductPayload) => {
+  const updateProduct = async (id: string, data: UpdateProductPayload) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axiosInstance.post('/products', data);
+      const response = await axiosInstance.put(`/products/${id}`, data);
       return response.data;
     } catch (err) {
       setError(err);
@@ -28,7 +30,7 @@ export const useAddProduct = () => {
   };
 
   return {
-    addProduct,
+    updateProduct,
     loading,
     error,
   };

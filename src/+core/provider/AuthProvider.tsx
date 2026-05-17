@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { UserType } from '@/types';
 import { setUser } from '@/store/actions/user.action';
 import authApi from '../api/auth.api';
-import FullScreenLoading from '@/components/global/FullScreenLoading/FullScreenLoading';
+import FullScreenLoading from '@/components/global/FullScreenLoading';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 

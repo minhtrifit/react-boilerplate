@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, message, Typography } from 'antd';
 import { LuSend } from 'react-icons/lu';
-import { TextEditor } from '@/components/ui/TextEditor/TextEditor';
-import Label from '@/components/ui/Label/Label';
+import { TextEditor } from '@/components/ui/TextEditor';
+import Label from '@/components/ui/Label';
 
 const { Text } = Typography;
 
-const AddBlogPage = () => {
+const CreateBlogPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -100,4 +100,4 @@ const AddBlogPage = () => {
   );
 };
 
-export default AddBlogPage;
+export default CreateBlogPage;

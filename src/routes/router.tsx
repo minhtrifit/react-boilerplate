@@ -21,17 +21,17 @@ import {
 import Layout from '@/components/global/layout/Layout';
 import DashboardLayout from '@/components/global/layout/DashboardLayout';
 
-import { HomePage } from '@/pages/home/HomePage';
-import { NotFoundPage } from '@/pages/not-found-page/NotFoundPage';
-import DashboardPage from '@/pages/dashboard/DashboardPage';
-import ProductPage from '@/pages/product/ProductPage';
-import AddProductPage from '@/pages/add-product/AddProductPage';
-import EditProductPage from '@/pages/edit-product/EditProductPage';
-import BlogPage from '@/pages/blog/BlogPage';
-import AddBlogPage from '@/pages/add-blog/AddBlogPage';
-import DetailBlogPage from '@/pages/detail-blog/DetailBlogPage';
-import CartPage from '@/pages/cart/CartPage';
-import AddCartPage from '@/pages/add-cart/AddCartPage';
+import { HomePage } from '@/pages/home';
+import { NotFoundPage } from '@/pages/not-found-page';
+import DashboardPage from '@/pages/dashboard';
+import ProductPage from '@/pages/product/list';
+import CreateProductPage from '@/pages/product/create';
+import EditProductPage from '@/pages/product/edit';
+import BlogPage from '@/pages/blog/list';
+import CreateBlogPage from '@/pages/blog/create';
+import DetailBlogPage from '@/pages/blog/detail';
+import CartPage from '@/pages/cart/list';
+import CreateCartPage from '@/pages/cart/create';
 
 export const router = createBrowserRouter([
   {
@@ -50,15 +50,15 @@ export const router = createBrowserRouter([
     children: [
       // Products
       { path: PRODUCT_ROUTE, element: <ProductPage /> },
-      { path: ADD_PRODUCT_ROUTE, element: <AddProductPage /> },
+      { path: ADD_PRODUCT_ROUTE, element: <CreateProductPage /> },
       { path: EDIT_PRODUCT_ROUTE, element: <EditProductPage /> },
       { path: DETAIL_PRODUCT_ROUTE, element: <div>DetailProductPage</div> },
       // Carts
       { path: CARTS_ROUTE, element: <CartPage /> },
-      { path: ADD_CART_ROUTE, element: <AddCartPage /> },
+      { path: ADD_CART_ROUTE, element: <CreateCartPage /> },
       // Blogs
       { path: BLOGS_ROUTE, element: <BlogPage /> },
-      { path: ADD_BLOG_ROUTE, element: <AddBlogPage /> },
+      { path: ADD_BLOG_ROUTE, element: <CreateBlogPage /> },
       { path: DETAIL_BLOG_ROUTE, element: <DetailBlogPage /> },
     ],
   },

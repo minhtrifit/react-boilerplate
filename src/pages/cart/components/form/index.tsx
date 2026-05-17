@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form, Input, InputNumber, Typography } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import Editor from '../Editor/Editor';
+import { TextEditor } from '@/components/ui/TextEditor';
 
 interface PropType {
   defaultValues: any;
@@ -128,7 +128,7 @@ const CartsForm = (props: PropType) => {
                 control={control}
                 name={`carts.${index}.description`}
                 render={({ field }) => (
-                  <Editor value={field.value} onChange={field.onChange} height={300} />
+                  <TextEditor value={field.value} onChange={field.onChange} height={300} />
                 )}
               />
             </Form.Item>
@@ -150,7 +150,7 @@ const CartsForm = (props: PropType) => {
         <Typography.Text type='danger'>{errors.carts.message}</Typography.Text>
       )}
 
-      <Form.Item>
+      <Form.Item className='flex items-center justify-end gap-2'>
         <Button type='primary' htmlType='submit' loading={submitLoading}>
           Lưu
         </Button>

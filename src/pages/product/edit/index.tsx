@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { message } from 'antd';
-import { useGetDetailProduct } from './hooks/useGetDetailProduct';
-import { useEditProduct } from './hooks/useEditProduct';
-import ProductForm from '../product/components/form/ProductForm';
+import { useDetail } from '../hooks/useDetail';
+import { useEdit } from '../hooks/useEdit';
+import ProductForm from '../components/form';
 
 const EditProductPage = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ const EditProductPage = () => {
 
   const id = params?.id ?? '';
 
-  const { data, loading } = useGetDetailProduct(id);
-  const { updateProduct, loading: editLoading } = useEditProduct();
+  const { data, loading } = useDetail(id);
+  const { updateProduct, loading: editLoading } = useEdit();
 
   const handleSubmit = async (data: any) => {
     try {

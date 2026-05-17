@@ -1,4 +1,4 @@
-import LoginForm from './components/LoginForm/LoginForm';
+import LoginForm from './components/LoginForm';
 
 export function HomePage() {
   return (

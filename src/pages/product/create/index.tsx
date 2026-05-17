@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
-import { useAddProduct } from './hooks/useAddProduct';
-import ProductForm from '../product/components/form/ProductForm';
+import { useCreate } from '../hooks/useCreate';
+import ProductForm from '../components/form';
 
-const AddProductPage = () => {
+const CreateProductPage = () => {
   const navigate = useNavigate();
 
-  const { addProduct, loading } = useAddProduct();
+  const { addProduct, loading } = useCreate();
 
   const handleSubmit = async (data: any) => {
     try {
@@ -31,4 +31,4 @@ const AddProductPage = () => {
   );
 };
 
-export default AddProductPage;
+export default CreateProductPage;

@@ -9,11 +9,11 @@ import { RootState } from '@/store/store';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { setSidebar, toggleSidebar } from '@/store/actions/user.action';
 import { useTranslation } from 'react-i18next';
-import Sidebar from '../Sidebar/Sidebar';
-import LanguageToggle from '../LanguageToggle/LanguageToggle';
-import UserDropdown from '@/components/ui/UserDropdown/UserDropdown';
-import NotificationDropdown from '../NotificationDropdown/NotificationDropdown';
-import Footer from '../Footer/Footer';
+import Sidebar from '../Sidebar';
+import LanguageToggle from '../LanguageToggle';
+import UserDropdown from '@/components/ui/UserDropdown';
+import NotificationDropdown from '../NotificationDropdown';
+import Footer from '../Footer';
 
 const APP_NAME = import.meta.env.VITE_APP_NAME;
 
