@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { ADD_BLOG_ROUTE } from '@/routes/route.constant';
 
 const BlogPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const BlogPage = () => {
           variant='solid'
           icon={<PlusOutlined />}
           onClick={() => {
-            navigate('/management/blogs/add');
+            navigate(ADD_BLOG_ROUTE);
           }}
         >
           Thêm mới

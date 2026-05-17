@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { ADD_CART_ROUTE } from '@/routes/route.constant';
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const CartPage = () => {
           variant='solid'
           icon={<PlusOutlined />}
           onClick={() => {
-            navigate('/management/carts/add');
+            navigate(ADD_CART_ROUTE);
           }}
         >
           Thêm mới
